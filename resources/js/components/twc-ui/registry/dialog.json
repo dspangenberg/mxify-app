@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog",
+  "type": "registry:ui",
+  "title": "Dialog",
+  "description": "Dialog component",
+  "dependencies": ["tailwind-variants", "react-aria-components", "lucide-react"],
+  "registryDependencies": ["@twc-ui/button"],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/dialog.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/dialog.tsx"
+    }
+  ]
+}

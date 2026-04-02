@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "type": "registry:ui",
+  "title": "popover",
+  "description": "React aria components popover",
+  "dependencies": ["react-aria-components"],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/popover.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/popover.tsx"
+    }
+  ]
+}

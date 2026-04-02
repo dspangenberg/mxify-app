@@ -1,0 +1,28 @@
+import { useDateTimeConversion } from '@/hooks/use-date-conversion'
+import { DateTimeField, type DateTimeFieldProps } from './date-time-field'
+import { useFormContext } from './form'
+import { FormFieldError, getFormError } from './form-errors'
+
+interface FormDateTimeFieldProps extends Omit<DateTimeFieldProps, 'value' | 'onChange'> {
+  value?: string | null
+  onChange?: (value: string | null) => void
+}
+
+const FormDateTimeField = ({ value, onChange, ...props }: FormDateTimeFieldProps) => {
+  const form = useFormContext()
+  const error = getFormError(form?.errors, props.name as string | undefined)
+  const { parsedDateTime, handleChange } = useDateTimeConversion(value, onChange)
+
+  return (
+    <DateTimeField
+      errorComponent={FormFieldError}
+      errorMessage={error}
+      value={parsedDateTime}
+      onChange={handleChange}
+      {...props}
+    />
+  )
+}
+
+export { FormDateTimeField }
+export type { FormDateTimeFieldProps }

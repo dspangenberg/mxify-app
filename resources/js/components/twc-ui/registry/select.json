@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:ui",
+  "title": "select",
+  "description": "React aria components select",
+  "dependencies": ["react-aria-components", "lucide-react"],
+  "registryDependencies": ["@twc-ui/field", "@twc-ui/list-box", "@twc-ui/popover"],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/select.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/select.tsx"
+    }
+  ]
+}

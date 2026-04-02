@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "type": "registry:ui",
+  "title": "toolbar",
+  "description": "React aria components toolbar",
+  "dependencies": ["react-aria-components", "tailwind-variants"],
+  "registryDependencies": ["@twc-ui/button"],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/toolbar.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/toolbar.tsx"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-button",
+  "type": "registry:ui",
+  "title": "ToggleButton",
+  "description": "ToggleButton component",
+  "dependencies": ["react-aria-components", "tailwind-variants"],
+  "registryDependencies": ["@twc-ui/button", "@twc-ui/icon", "@twc-ui/tooltip"],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/toggle-button.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/toggle-button.tsx"
+    }
+  ]
+}

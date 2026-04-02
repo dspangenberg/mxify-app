@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker",
+  "type": "registry:ui",
+  "title": "Date Picker",
+  "description": "Date picker component",
+  "dependencies": [
+    "@hugeicons/core-free-icons",
+    "@internationalized/date",
+    "react-aria-components",
+    "date-fns",
+    "react-aria",
+    "tailwind-variants"
+  ],
+  "registryDependencies": [
+    "@twc-ui/button",
+    "@twc-ui/calendar",
+    "@twc-ui/date-field",
+    "@twc-ui/field",
+    "@twc-ui/popover",
+    "@twc-ui/use-date-conversion"
+  ],
+  "files": [
+    {
+      "path": "resources/js/components/twc-ui/date-picker.tsx",
+      "type": "registry:ui",
+      "target": "components/twc-ui/date-picker.tsx"
+    }
+  ]
+}

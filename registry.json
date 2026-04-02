@@ -1,0 +1,1627 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "twc-ui",
+  "homepage": "https://ui.twiceware.cloud",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "AlertDialog",
+      "description": "AlertDialog component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@twc-ui/dialog",
+        "@twc-ui/button",
+        "@twc-ui/icon"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/alert-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/alert-dialog.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alert component",
+      "dependencies": [
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/icon"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/alert.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/alert.tsx"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "info": "oklch(0.7 0.15 240)",
+          "info-foreground": "oklch(0.145 0 0)",
+          "warning": "oklch(0.95 0.12 90)",
+          "warning-foreground": "oklch(0.35 0.09 70)",
+          "success": "oklch(0.7 0.15 145)",
+          "success-foreground": "oklch(0.145 0 0)"
+        }
+      },
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar-upload",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar component",
+      "dependencies": [
+        "@radix-ui/react-avatar"
+      ],
+      "registryDependencies": [
+        "@twc-ui/avatar",
+        "@twc-ui/button",
+        "@twc-ui/file-trigger"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/avatar-upload.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/avatar-upload.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar component",
+      "dependencies": [
+        "@radix-ui/react-avatar"
+      ],
+      "registryDependencies": [
+        "@twc-ui/use-initials"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/avatar.tsx"
+        },
+        {
+          "path": "resources/js/lib/color-utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumbs",
+      "type": "registry:ui",
+      "title": "Breadcrumbs",
+      "description": "React aria components breadcrumbs",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/breadcrumbs.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/breadcrumbs.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/icon",
+        "@twc-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/button.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/button.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar component",
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components",
+        "lucide-react",
+        "react-aria",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/select"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/calendar.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox component",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/checkbox.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "combo-box",
+      "type": "registry:ui",
+      "title": "ComboBox",
+      "description": "TextField ComboBox",
+      "dependencies": [
+        "react-aria-components",
+        "react-aria",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/button",
+        "@twc-ui/list-box",
+        "@twc-ui/popover"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/combo-box.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/combo-box.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "complete",
+      "type": "registry:ui",
+      "title": "All components",
+      "description": "All components",
+      "dependencies": [
+        "@inertiajs/core",
+        "laravel-precognition"
+      ],
+      "registryDependencies": [
+        "@twc-ui/form-complete",
+        "@twc-ui/alert",
+        "@twc-ui/alert-dialog",
+        "@twc-ui/button",
+        "@twc-ui/dialog",
+        "@twc-ui/dropdown-button",
+        "@twc-ui/empty",
+        "@twc-ui/extended-dialog",
+        "@twc-ui/icon",
+        "@twc-ui/link-button",
+        "@twc-ui/list-box",
+        "@twc-ui/logo",
+        "@twc-ui/logo-spinner",
+        "@twc-ui/pdf-viewer",
+        "@twc-ui/popover",
+        "@twc-ui/separator",
+        "@twc-ui/split-button",
+        "@twc-ui/tabs",
+        "@twc-ui/tooltip",
+        "@twc-ui/toolbar"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-field",
+      "type": "registry:ui",
+      "title": "Date Field",
+      "description": "Date Field component",
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/date-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/date-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Date picker component",
+      "dependencies": [
+        "@hugeicons/core-free-icons",
+        "@internationalized/date",
+        "react-aria-components",
+        "date-fns",
+        "react-aria",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/calendar",
+        "@twc-ui/date-field",
+        "@twc-ui/field",
+        "@twc-ui/popover",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/date-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/date-picker.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-range-picker",
+      "type": "registry:ui",
+      "title": "Date Range Picker",
+      "description": "Date range picker component",
+      "dependencies": [
+        "@hugeicons/core-free-icons",
+        "@internationalized/date",
+        "react-aria-components"
+      ],
+      "devDependencies": [
+        "@react-types/shared"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/range-calendar",
+        "@twc-ui/date-field",
+        "@twc-ui/field",
+        "@twc-ui/popover",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/date-range-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/date-range-picker.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-time-field",
+      "type": "registry:ui",
+      "title": "Date Time Field",
+      "description": "Date Time Field component",
+      "dependencies": [
+        "@internationalized/date",
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/date-time-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/date-time-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Dialog component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/dialog.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dropdown-button",
+      "type": "registry:ui",
+      "title": "DropdownButton",
+      "description": "DropdownButton component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/menu",
+        "@twc-ui/button",
+        "@twc-ui/icon"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/dropdown-button.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/dropdown-button.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "React aria components empty",
+      "dependencies": [
+        "tailwind-variants"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/empty.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/empty.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "extended-dialog",
+      "type": "registry:ui",
+      "title": "ExtendedDialog",
+      "description": "ExtendedDialog component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@twc-ui/alert-dialog",
+        "@twc-ui/dialog",
+        "@twc-ui/button"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/extended-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/extended-dialog.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {
+          "page-content": "oklch(0.99 0.0011 197.13)"
+        },
+        "dark": {
+          "page-content": "oklch(0.01 0.0011 197.13)"
+        }
+      },
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Field component",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "file-trigger",
+      "type": "registry:ui",
+      "title": "FileTrigger",
+      "description": "React aria FileTrigger component",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/file-trigger.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/file-trigger.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-card",
+      "type": "registry:ui",
+      "title": "FormCard",
+      "description": "FormCard component",
+      "registryDependencies": [
+        "@twc-ui/scroll-area"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-card.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-card.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-checkbox-group",
+      "type": "registry:ui",
+      "title": "FormCheckboxGroup",
+      "description": "FormCheckboxGroup component with form integration",
+      "registryDependencies": [
+        "@twc-ui/checkbox"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-checkbox-group.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-checkbox-group.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-checkbox",
+      "type": "registry:ui",
+      "title": "FormCheckbox",
+      "description": "FormCheckbox component with form integration",
+      "registryDependencies": [
+        "@twc-ui/checkbox"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-checkbox.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-combo-box",
+      "type": "registry:ui",
+      "title": "FormComboBox",
+      "description": "ComboBox component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/combo-box",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-combo-box.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-combo-box.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-complete",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "All form components",
+      "dependencies": [
+        "@inertiajs/core",
+        "laravel-precognition"
+      ],
+      "registryDependencies": [
+        "@twc-ui/form-card",
+        "@twc-ui/form-checkbox",
+        "@twc-ui/form-checkbox-group",
+        "@twc-ui/form-combo-box",
+        "@twc-ui/form-date-field",
+        "@twc-ui/form-date-picker",
+        "@twc-ui/form-date-range-picker",
+        "@twc-ui/form-date-time-field",
+        "@twc-ui/form-errors",
+        "@twc-ui/form-grid",
+        "@twc-ui/form-number-field",
+        "@twc-ui/form-radio-group",
+        "@twc-ui/form-search-field",
+        "@twc-ui/form-select",
+        "@twc-ui/form-password-field",
+        "@twc-ui/form-text-area",
+        "@twc-ui/form-text-field",
+        "@twc-ui/form-time-field",
+        "@twc-ui/use-twc-ui-form"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-date-field",
+      "type": "registry:ui",
+      "title": "FormDateField",
+      "description": "DateField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/date-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-date-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-date-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-date-picker",
+      "type": "registry:ui",
+      "title": "FormDatePicker",
+      "description": "DatePicker component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/date-picker",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-date-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-date-picker.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-date-range-picker",
+      "type": "registry:ui",
+      "title": "FormDateRangePicker",
+      "description": "DateRangePicker component with form integration",
+      "dependencies": [
+        "react-aria-components",
+        "@react-types/shared"
+      ],
+      "registryDependencies": [
+        "@twc-ui/date-range-picker",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-date-range-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-date-range-picker.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-date-time-field",
+      "type": "registry:ui",
+      "title": "FormDateTimeField",
+      "description": "DateTimeField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/date-time-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-date-time-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-date-time-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-errors",
+      "type": "registry:ui",
+      "title": "Error section",
+      "description": "Error section for forms",
+      "dependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@twc-ui/icon"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-errors.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-errors.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-grid",
+      "type": "registry:ui",
+      "title": "Error section",
+      "description": "Error section for forms",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-grid.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-number-field",
+      "type": "registry:ui",
+      "title": "FormNumberField",
+      "description": "NumberField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/number-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-number-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-number-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-password-field",
+      "type": "registry:ui",
+      "title": "FormPasswordField",
+      "description": "FormPasswordField component",
+      "dependencies": [
+        "react-aria-components",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/icon",
+        "@twc-ui/input-group",
+        "@twc-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-password-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-password-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-radio-group",
+      "type": "registry:ui",
+      "title": "FormRadioGroup",
+      "description": "RadioGroup component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/radio-group",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-radio-group.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-search-field",
+      "type": "registry:ui",
+      "title": "FormSearchField",
+      "description": "SearchField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/search-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-search-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-search-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-select",
+      "type": "registry:ui",
+      "title": "FormSelect",
+      "description": "Select component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/select",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-select.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-select.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-text-area",
+      "type": "registry:ui",
+      "title": "FormTextArea",
+      "description": "TextArea component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/text-area",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-text-area.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-text-area.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-text-field",
+      "type": "registry:ui",
+      "title": "FormTextField",
+      "description": "TextField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/text-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-text-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-text-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form-time-field",
+      "type": "registry:ui",
+      "title": "FormTimeField",
+      "description": "TimeField component with form integration",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/time-field",
+        "@twc-ui/form",
+        "@twc-ui/form-errors",
+        "@twc-ui/use-date-conversion"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form-time-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form-time-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Form component",
+      "dependencies": [
+        "@inertiajs/core",
+        "laravel-precognition"
+      ],
+      "registryDependencies": [
+        "@twc-ui/form-errors",
+        "@twc-ui/use-twc-ui-form"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/form.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/form.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "React aria components tooltip",
+      "dependencies": [
+        "lucide-react",
+        "@hugeicons/react"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/icon.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/icon.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "InputGroup",
+      "description": "InputGroup component",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/text-area"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/input-group.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/input-group.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "link-button",
+      "type": "registry:ui",
+      "title": "LinkButton",
+      "description": "LinkButton component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/icon",
+        "@twc-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/link-button.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/link-button.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "list-box",
+      "type": "registry:ui",
+      "title": "ListBox",
+      "description": "React aria ListBox component",
+      "dependencies": [
+        "lucide-react",
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/list-box.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/list-box.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo-spinner",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "React aria components tooltip",
+      "registryDependencies": [
+        "@twc-ui/logo"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/logo-spinner.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/logo-spinner.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo",
+      "type": "registry:ui",
+      "title": "Logo",
+      "description": "twiceware-Logo",
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/logo.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/logo.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "DropdownButton",
+      "description": "DropdownButton component",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/list-box",
+        "@twc-ui/select",
+        "@twc-ui/icon"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/menu.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/menu.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "NumberField",
+      "description": "NumberField component",
+      "dependencies": [
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/field"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/number-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/number-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pdf-container",
+      "type": "registry:ui",
+      "title": "PdfContainer",
+      "description": "PdfContainer component",
+      "dependencies": [
+        "pdfjs-dist@5.4.296",
+        "react-pdf",
+        "print-js",
+        "@hugeicons/core-free-icons",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/dropdown-button",
+        "@twc-ui/logo-spinner",
+        "@twc-ui/separator",
+        "@twc-ui/toggle-button-group",
+        "@twc-ui/toolbar",
+        "@twc-ui/use-file-download"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/pdf-container.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/pdf-container.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pdf-viewer",
+      "type": "registry:ui",
+      "title": "PdfViewer",
+      "description": "PdfViewer component",
+      "dependencies": [],
+      "registryDependencies": [
+        "@twc-ui/extended-dialog",
+        "@twc-ui/pdf-container"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/pdf-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/pdf-viewer.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "popover",
+      "description": "React aria components popover",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/popover.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/popover.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Radio Group",
+      "dependencies": [
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/form"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/radio-group.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "range-calendar",
+      "type": "registry:ui",
+      "title": "RangeCalendar",
+      "description": "Range Calendar component",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/calendar"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/range-calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/range-calendar.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "ScrollArea",
+      "description": "ScrollArea component",
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/scroll-area.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/scroll-area.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "search-field",
+      "type": "registry:ui",
+      "title": "SearchField",
+      "description": "SearchField component",
+      "dependencies": [
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/field",
+        "@twc-ui/text-field"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/search-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/search-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:ui",
+      "title": "select",
+      "description": "React aria components select",
+      "dependencies": [
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/list-box",
+        "@twc-ui/popover"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/select.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/select.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "React aria components separator",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/separator.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "split-button",
+      "type": "registry:ui",
+      "title": "SplitButton",
+      "description": "SplitButton component",
+      "dependencies": [
+        "react-aria-components",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/dropdown-button"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/split-button.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/split-button.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "React aria components tabs",
+      "dependencies": [
+        "tailwind-variants",
+        "react-aria-components"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/tabs.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-area",
+      "type": "registry:ui",
+      "title": "TextArea",
+      "description": "TextArea component",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/use-field-change"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/text-area.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/text-area.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "text-field",
+      "type": "registry:ui",
+      "title": "TextField",
+      "description": "TextField component",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/use-field-change"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/text-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/text-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "time-field",
+      "type": "registry:ui",
+      "title": "Time Field",
+      "description": "Time Field component",
+      "dependencies": [
+        "react-aria-components"
+      ],
+      "registryDependencies": [
+        "@twc-ui/field",
+        "@twc-ui/date-field"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/time-field.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/time-field.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle-button-group",
+      "type": "registry:ui",
+      "title": "ToggleButtonGroup",
+      "description": "ToggleButtonGroup component",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/toggle-button",
+        "@twc-ui/button"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/toggle-button-group.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/toggle-button-group.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle-button",
+      "type": "registry:ui",
+      "title": "ToggleButton",
+      "description": "ToggleButton component",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button",
+        "@twc-ui/icon",
+        "@twc-ui/tooltip"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/toggle-button.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/toggle-button.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toolbar",
+      "type": "registry:ui",
+      "title": "toolbar",
+      "description": "React aria components toolbar",
+      "dependencies": [
+        "react-aria-components",
+        "tailwind-variants"
+      ],
+      "registryDependencies": [
+        "@twc-ui/button"
+      ],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/toolbar.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/toolbar.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "React aria component tooltip",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/components/twc-ui/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/twc-ui/tooltip.tsx"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-date-conversion",
+      "type": "registry:hook",
+      "title": "use-date-conversion",
+      "description": "use-date-conversion Hook",
+      "dependencies": [
+        "@internationalized/date",
+        "date-fns"
+      ],
+      "devDependencies": [
+        "@react-types/shared"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/hooks/use-date-conversion.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-field-change",
+      "type": "registry:hook",
+      "title": "use-field-change",
+      "description": "use-field-change Hook",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/hooks/use-field-change.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-file-download",
+      "type": "registry:hook",
+      "title": "use-file-download Hook",
+      "description": "use-file-download-Hook",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/hooks/use-file-download.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-initials",
+      "type": "registry:hook",
+      "title": "use-initials",
+      "description": "use-field-change Hook",
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/hooks/use-initials.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "use-twc-ui-form",
+      "type": "registry:hook",
+      "title": "use-twc-ui-form",
+      "description": "use-twc-ui-form-Hook",
+      "dependencies": [
+        "@react-types/shared",
+        "@inertiajs/core",
+        "date-fns",
+        "moderndash",
+        "laravel-precognition",
+        "laravel-precognition-react-inertia"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "resources/js/hooks/use-twc-ui-form.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "author": "Danny Spangenberg <danny.spangenberg@twiceware.de>"
+    }
+  ]
+}
