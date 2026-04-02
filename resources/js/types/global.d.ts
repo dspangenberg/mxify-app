@@ -1,4 +1,5 @@
-import type { RouteParamsWithQueryOverload, Config } from 'ziggy-js'
+import type { VisitOptions } from '@inertiajs/core'
+import type { Config, RouteParamsWithQueryOverload } from 'ziggy-js'
 
 declare global {
   const route: (<T extends string = string>(
@@ -13,11 +14,6 @@ declare global {
     has(name: string): boolean
   }
 }
-
-import type { PageProps as InertiaPageProps, VisitOptions } from '@inertiajs/core'
-import { AxiosInstance } from 'axios'
-import { route as ziggyRoute } from 'ziggy-js'
-import { PageProps as AppPageProps } from './'
 
 declare module 'react-aria-components' {
   interface RouterConfig {

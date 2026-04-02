@@ -1,8 +1,8 @@
 import {
-  DashboardSpeed02Icon,
+  DashboardSquare03Icon,
   MailAccount02Icon,
   ServerStack01Icon,
-  Settings04Icon
+  Settings02Icon
 } from '@hugeicons/core-free-icons'
 import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
@@ -28,7 +28,7 @@ const mainNavItems: NavItem[] = [
   {
     title: 'Dashboard',
     href: route('app.dashboard', {}, false),
-    icon: DashboardSpeed02Icon
+    icon: DashboardSquare03Icon
   },
   {
     title: 'Zones',
@@ -41,9 +41,9 @@ const mainNavItems: NavItem[] = [
     icon: MailAccount02Icon
   },
   {
-    title: 'Settings',
+    title: 'Setup',
     href: route('app.placeholder', {}, false),
-    icon: Settings04Icon
+    icon: Settings02Icon
   }
 ]
 
