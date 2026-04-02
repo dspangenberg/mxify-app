@@ -31,25 +31,21 @@
         }
     </style>
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <x-inertia::head>
+        <title>{{ config('app.name', 'Laravel') }}</title>
+    </x-inertia::head>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     @routes
     @viteReactRefresh
-    @vite(['resources/js/app.tsx'])
+    @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
     @inertiaHead
 </head>
 <body class="font-sans antialiased">
-@inertia
+<x-inertia::app />
 </body>
-
-
-@if (config('services.umami.site_token'))
-    <script defer src="https://umami.twiceware.cloud/script.js" data-website-id="{{config('services.umami.site_token')}}"
-    ></script>
-@endif
 
 
 </html>

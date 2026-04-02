@@ -69,10 +69,7 @@ vi.mock('react-aria-components', () => {
     },
     TextArea: (allProps: any) => {
       // Extract and remove internal props first
-      const {
-        _textFieldProps,
-        ...propsWithoutInternal
-      } = allProps
+      const { _textFieldProps, ...propsWithoutInternal } = allProps
 
       // Extract known props, rest goes to DOM
       const {
@@ -89,7 +86,12 @@ vi.mock('react-aria-components', () => {
         ...domProps
       } = propsWithoutInternal
 
-      const { isInvalid, isDisabled, value: contextValue, onChange: contextOnChange } = _textFieldProps || {}
+      const {
+        isInvalid,
+        isDisabled,
+        value: contextValue,
+        onChange: contextOnChange
+      } = _textFieldProps || {}
 
       // Use context values if available, otherwise use direct values
       const onChange = contextOnChange || directOnChange
@@ -130,8 +132,7 @@ vi.mock('react-aria-components', () => {
   }
 })
 
-describe('TextArea Component', () =>
-{
+describe('TextArea Component', () => {
   it('renders a text area with label', () => {
     render(<TextArea label="Comments" />)
 
@@ -345,11 +346,9 @@ describe('TextArea Component', () =>
     expect(textArea).toHaveAttribute('name', 'comments')
     expect(textArea).toHaveAttribute('maxLength', '100')
   })
-}
-)
+})
 
-describe('RACTextArea Component', () =>
-{
+describe('RACTextArea Component', () => {
   it('renders textarea with default classes', () => {
     render(<RACTextArea />)
 
@@ -473,5 +472,4 @@ describe('RACTextArea Component', () =>
     const textarea = screen.getByTestId('text-area-input')
     expect(textarea).toHaveAttribute('autoComplete', 'email')
   })
-}
-)
+})

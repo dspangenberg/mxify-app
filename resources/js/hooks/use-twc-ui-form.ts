@@ -1,11 +1,8 @@
 import type { FormDataConvertible } from '@inertiajs/core'
+import { useForm as useInertiaForm } from '@inertiajs/react'
 import type { RangeValue } from '@react-types/shared'
 import { format, isValid, parse, parseISO } from 'date-fns'
-import type { RequestMethod, ValidationConfig } from 'laravel-precognition'
-import { useForm as useInertiaForm } from 'laravel-precognition-react-inertia'
-import { isEqual } from 'moderndash'
 import type { ChangeEvent } from 'react'
-import { useRef } from 'react'
 
 type InputElements = HTMLInputElement | HTMLSelectElement
 
@@ -38,6 +35,7 @@ function setNestedValue(obj: any, path: string, value: any): any {
   const normalizedPath = path.replace(/\[(\d+)]/g, '.$1')
   const keys = normalizedPath.split('.')
   const lastKey = keys.pop()
+
   if (!lastKey) {
     return obj
   }
@@ -49,33 +47,32 @@ function setNestedValue(obj: any, path: string, value: any): any {
       const nextKey = keys[index + 1]
       current[key] = /^\d+$/.test(nextKey) ? [] : {}
     }
+
     return current[key]
   }, obj)
 
   parent[lastKey] = value
+
   return obj
 }
 
+export type RequestMethod = 'get' | 'post' | 'put' | 'patch' | 'delete'
 export type FormValidationMode = 'change' | 'blur' | 'both' | 'none'
 
 export interface FormValidationOptions {
   validateOn?: FormValidationMode
 }
 
-type ValidationConfigWithOptions = ValidationConfig & FormValidationOptions
-
 export function useForm<T extends Record<string, FormDataConvertible>>(
   method: RequestMethod,
   url: string,
   data: T,
-  config?: ValidationConfigWithOptions
+  config?: FormValidationOptions
 ) {
-  // Capture the very first snapshot only once
-  const initialDataRef = useRef({ ...data })
-  const configValue = (config ?? {}) as ValidationConfigWithOptions
-  const { validateOn: configValidateOn, ...precognitionConfig } = configValue
-  const form = useInertiaForm<T>(method, url, data, precognitionConfig)
-  const isDirty = !isEqual(initialDataRef.current, form.data)
+  const configValue = config ?? {}
+  const { validateOn: configValidateOn } = configValue
+  // Inertia v3: passing method/url/data enables built-in Precognition
+  const form = useInertiaForm(method, url, data as any)
   const validateOn = configValidateOn ?? 'blur'
   const shouldValidateOnChange = validateOn === 'change' || validateOn === 'both'
   const shouldValidateOnBlur = validateOn === 'blur' || validateOn === 'both'
@@ -105,12 +102,14 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
 
   const touchFormField = (name: string) => {
     // Convert array notation to dot notation for Laravel validation
+    // Inertia v3: touch() marks a field as touched (was touched() in laravel-precognition)
     const laravelName = name.replace(/\[(\d+)]/g, '.$1')
-    ;(form as any).touched(laravelName)
+    ;(form as any).touch(laravelName)
   }
 
   const updateAndValidateWithoutEvent = (name: string, value: any) => {
     setFormData(name, value)
+
     if (shouldValidateOnChange) {
       validateFormField(name)
     }
@@ -130,6 +129,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       error,
       onChange: (value: any) => {
         setFormData(name, value)
+
         if (shouldValidateOnChange) {
           validateFormField(name)
         }
@@ -156,6 +156,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       error,
       onChange: (e: ChangeEvent<InputElements>) => {
         setFormData(name, e.currentTarget.value)
+
         if (shouldValidateOnChange) {
           validateFormField(name)
         }
@@ -184,6 +185,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       isSelected: Boolean(value),
       onChange: (checked: boolean) => {
         setFormData(name, checked)
+
         if (shouldValidateOnChange) {
           validateFormField(name)
         }
@@ -203,6 +205,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
     const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     touchFormField(name)
     setFormData(name, newValue)
+
     if (shouldValidateOnChange) {
       validateFormField(name)
     }
@@ -210,13 +213,16 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
 
   // Hilfsfunktion: Konvertiert Datum vom konfigurierten Format zu ISO (yyyy-MM-dd) mit date-fns
   const convertToISO = (dateString: string): string | null => {
-    if (!dateString) return null
+    if (!dateString) {
+      return null
+    }
 
     try {
       // Wenn bereits im ISO-Format (yyyy-MM-dd)
       if (DATE_FORMAT === 'yyyy-MM-dd') {
         // Validiere, dass es ein gültiges Datum ist
         const date = parseISO(dateString)
+
         return isValid(date) ? dateString : null
       }
 
@@ -235,7 +241,9 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
 
   // Hilfsfunktion: Konvertiert Datum von ISO (yyyy-MM-dd) zum konfigurierten Format mit date-fns
   const convertFromISO = (isoDateString: string): string => {
-    if (!isoDateString) return ''
+    if (!isoDateString) {
+      return ''
+    }
 
     try {
       // Wenn das Zielformat bereits yyyy-MM-dd ist
@@ -263,7 +271,9 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       const startValue = (form.data as any)[startFieldName] as string
       const endValue = (form.data as any)[endFieldName] as string
 
-      if (!startValue || !endValue) return null
+      if (!startValue || !endValue) {
+        return null
+      }
 
       // Konvertiere beide Werte mit date-fns zu ISO-Format
       const startISO = convertToISO(startValue)
@@ -291,6 +301,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
 
           setFormData(startFieldName, startFormatted)
           setFormData(endFieldName, endFormatted)
+
           if (shouldValidateOnChange) {
             validateFormField(startFieldName)
             validateFormField(endFieldName)
@@ -298,6 +309,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
         } else {
           setFormData(startFieldName, null)
           setFormData(endFieldName, null)
+
           if (shouldValidateOnChange) {
             validateFormField(startFieldName)
             validateFormField(endFieldName)
@@ -313,18 +325,19 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
     } as const
   }
 
-  // Add isDirty to the form object
-  ;(form as any).isDirty = isDirty
+  // Wrap submit to automatically include method and url (Inertia v3 requires both)
+  const submit = (options: any) => (form as any).submit(method, url, options)
 
   return {
     ...form,
-    isDirty,
+    isDirty: form.isDirty,
     register,
     registerEvent,
     registerCheckbox,
     registerDateRange,
     updateAndValidate,
     updateAndValidateWithoutEvent,
+    submit,
     transform: form.transform
   } as const
 }

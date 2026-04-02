@@ -1,31 +1,30 @@
-import '../css/app.css'
-
 import { createInertiaApp } from '@inertiajs/react'
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { createRoot } from 'react-dom/client'
-import { initializeTheme } from './hooks/use-appearance'
-import '@fontsource/clear-sans/100.css'
-import '@fontsource/ia-writer-quattro';
-
-import '@fontsource-variable/jetbrains-mono'
-import type React from 'react'
-import { Providers } from './providers'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { initializeTheme } from '@/hooks/use-appearance'
+import AppLayout from '@/layouts/app-layout'
+import AuthLayout from '@/layouts/auth-layout'
+import SettingsLayout from '@/layouts/settings/layout'
+import '@fontsource/ia-writer-quattro'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
-  title: title => `${title} - ${appName}`,
-  resolve: async name => {
-    return resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx'))
+  title: title => (title ? `${title} - ${appName}` : appName),
+  layout: name => {
+    switch (true) {
+      case name === 'home':
+        return null
+      case name.startsWith('auth/'):
+        return AuthLayout
+      case name.startsWith('settings/'):
+        return [AppLayout, SettingsLayout]
+      default:
+        return AppLayout
+    }
   },
-  setup({ el, App, props }) {
-    const appElement = (
-      <Providers>
-        <App {...props} />
-      </Providers>
-    )
-
-    createRoot(el).render(appElement)
+  strictMode: true,
+  withApp(app) {
+    return <TooltipProvider delayDuration={0}>{app}</TooltipProvider>
   },
   progress: {
     color: '#4B5563'

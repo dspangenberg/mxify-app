@@ -37,8 +37,11 @@ importers:
         specifier: ^2.3.13
         version: 2.3.17
       '@inertiajs/react':
-        specifier: ^2.3.13
-        version: 2.3.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^3.0.2
+        version: 3.0.2(axios@1.13.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@inertiajs/vite':
+        specifier: ^3.0.2
+        version: 3.0.2(axios@1.13.6)(vite@7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0))
       '@internationalized/date':
         specifier: ^3.11.0
         version: 3.11.0
@@ -111,6 +114,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^5.1.3
         version: 5.1.4(vite@7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0))
+      babel-plugin-react-compiler:
+        specifier: ^1.0.0
+        version: 1.0.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -143,7 +149,7 @@ importers:
         version: 1.0.2
       laravel-precognition-react-inertia:
         specifier: ^0.8.0
-        version: 0.8.0(@inertiajs/react@2.3.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+        version: 0.8.0(@inertiajs/react@3.0.2(axios@1.13.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       laravel-vite-plugin:
         specifier: ^2.1.0
         version: 2.1.0(vite@7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0))
@@ -979,11 +985,24 @@ packages:
   '@inertiajs/core@2.3.17':
     resolution: {integrity: sha512-CELuVhq2cBVrqxmrbRKqseuIQPBA6PcgDU7EPkPQxK02Lxxg7wTZWZZ5omaGBT+5mQtr0bkEUqUF2vxYbu4ogw==}
 
-  '@inertiajs/react@2.3.17':
-    resolution: {integrity: sha512-TYCqRut0q2AuZb+BP/vbx50M0XYPoRvDOHBIcQGrDOkiAoHMZr2k260bcf8SfFPgZe1MxnMs6Ji+MdXcl55ckQ==}
+  '@inertiajs/core@3.0.2':
+    resolution: {integrity: sha512-ZBfV4HK5zjPC76VQ42WcgFdPmtO8zi+fzdkFBF0uM7EVwC5MSS8UITg8Yon4lb/i0X9bE3Ym16uHzgcPP1lL3Q==}
     peerDependencies:
-      react: ^16.9.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.9.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      axios: ^1.13.2
+    peerDependenciesMeta:
+      axios:
+        optional: true
+
+  '@inertiajs/react@3.0.2':
+    resolution: {integrity: sha512-gEJ8vpXpxxZ3ZMiYISn0RggggX54My7VpOU4kR7dEPdPBlIJSieZKHAgyt4klFSzxdNSK2QWpE4kqsWVMh7YNg==}
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+
+  '@inertiajs/vite@3.0.2':
+    resolution: {integrity: sha512-i/Pg9dprdLRae59Ek2Sf8GtCCmzQSR+bBz1nhbz23UcDC17ZqMzPSlWa37qvzESMbEqTjz+8wuxUz5+sfPlijQ==}
+    peerDependencies:
+      vite: ^7.0.0 || ^8.0.0
 
   '@inquirer/ansi@1.0.2':
     resolution: {integrity: sha512-S8qNSZiYzFd0wAcyG5AXCvUHC5Sr7xpZ9wZ2py9XR88jUz8wooStVx5M6dRzczbBWjic9NP7+rY0Xi7qqK/aMQ==}
@@ -3209,6 +3228,9 @@ packages:
   axios@1.13.6:
     resolution: {integrity: sha512-ChTCHMouEe2kn713WHbQGcuYrr6fXTBiu460OTwWrWob16g1bXn4vtz07Ope7ewMozJAnEquLk5lWQWtBig9DQ==}
 
+  babel-plugin-react-compiler@1.0.0:
+    resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
+
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
@@ -3584,6 +3606,9 @@ packages:
   es-set-tostringtag@2.1.0:
     resolution: {integrity: sha512-j6vWzfrGVfyXxge+O0x5sh6cvxAog0a/4Rdd2K36zCMV5eJ+/+tOAngRO8cODMNWbVRdVlmGZQL2YS3yR8bIUA==}
     engines: {node: '>= 0.4'}
+
+  es-toolkit@1.45.1:
+    resolution: {integrity: sha512-/jhoOj/Fx+A+IIyDNOvO3TItGmlMKhtX8ISAHKE90c4b/k1tqaqEZ+uUqfpU8DMnW5cgNJv606zS55jGvza0Xw==}
 
   esast-util-from-estree@2.0.0:
     resolution: {integrity: sha512-4CyanoAudUSBAn5K13H4JhsMH6L9ZP7XbLVe/dKybkxMO7eDyLsT8UHl9TRNrU2Gr9nz+FovfSIjuXWJ81uVwQ==}
@@ -4202,6 +4227,14 @@ packages:
 
   laravel-precognition@1.0.2:
     resolution: {integrity: sha512-0H08JDdMWONrL/N314fvsO3FATJwGGlFKGkMF3nNmizVFJaWs17816iM+sX7Rp8d5hUjYCx6WLfsehSKfaTxjg==}
+
+  laravel-precognition@2.0.0:
+    resolution: {integrity: sha512-dmA4HGc9m+TsVNsJs9/XQBI8u6j7coilN+qKkBuhuXQzH3HypwS/c5dFQ4UqUGjBbcxIM7zdk91kM/SRZwIvWQ==}
+    peerDependencies:
+      axios: ^1.4.0
+    peerDependenciesMeta:
+      axios:
+        optional: true
 
   laravel-vite-plugin@2.1.0:
     resolution: {integrity: sha512-z+ck2BSV6KWtYcoIzk9Y5+p4NEjqM+Y4i8/H+VZRLq0OgNjW2DqyADquwYu5j8qRvaXwzNmfCWl1KrMlV1zpsg==}
@@ -5866,7 +5899,7 @@ snapshots:
 
   '@babel/parser@7.28.6':
     dependencies:
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
 
   '@babel/parser@7.29.0':
     dependencies:
@@ -6283,16 +6316,31 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@inertiajs/react@2.3.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@inertiajs/core@3.0.2(axios@1.13.6)':
     dependencies:
-      '@inertiajs/core': 2.3.17
-      '@types/lodash-es': 4.17.12
-      laravel-precognition: 1.0.2
-      lodash-es: 4.17.23
+      '@jridgewell/trace-mapping': 0.3.31
+      es-toolkit: 1.45.1
+      laravel-precognition: 2.0.0(axios@1.13.6)
+    optionalDependencies:
+      axios: 1.13.6
+
+  '@inertiajs/react@3.0.2(axios@1.13.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@inertiajs/core': 3.0.2(axios@1.13.6)
+      es-toolkit: 1.45.1
+      laravel-precognition: 2.0.0(axios@1.13.6)
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
     transitivePeerDependencies:
-      - debug
+      - axios
+
+  '@inertiajs/vite@3.0.2(axios@1.13.6)(vite@7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0))':
+    dependencies:
+      '@inertiajs/core': 3.0.2(axios@1.13.6)
+      tinyglobby: 0.2.15
+      vite: 7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - axios
 
   '@inquirer/ansi@1.0.2': {}
 
@@ -8987,6 +9035,10 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
+  babel-plugin-react-compiler@1.0.0:
+    dependencies:
+      '@babel/types': 7.29.0
+
   bail@2.0.2: {}
 
   balanced-match@1.0.2: {}
@@ -9304,6 +9356,8 @@ snapshots:
       get-intrinsic: 1.3.0
       has-tostringtag: 1.0.2
       hasown: 2.0.2
+
+  es-toolkit@1.45.1: {}
 
   esast-util-from-estree@2.0.0:
     dependencies:
@@ -10019,9 +10073,9 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  laravel-precognition-react-inertia@0.8.0(@inertiajs/react@2.3.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
+  laravel-precognition-react-inertia@0.8.0(@inertiajs/react@3.0.2(axios@1.13.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4):
     dependencies:
-      '@inertiajs/react': 2.3.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@inertiajs/react': 3.0.2(axios@1.13.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       laravel-precognition: 0.8.0
       laravel-precognition-react: 0.8.0(react@19.2.4)
       react: 19.2.4
@@ -10049,6 +10103,12 @@ snapshots:
       lodash-es: 4.17.23
     transitivePeerDependencies:
       - debug
+
+  laravel-precognition@2.0.0(axios@1.13.6):
+    dependencies:
+      es-toolkit: 1.45.1
+    optionalDependencies:
+      axios: 1.13.6
 
   laravel-vite-plugin@2.1.0(vite@7.3.1(@types/node@25.3.3)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)(yaml@2.8.0)):
     dependencies:

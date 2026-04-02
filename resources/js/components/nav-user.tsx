@@ -14,19 +14,19 @@ import { Pressable } from 'react-aria-components'
 import { Avatar } from '@/components/twc-ui/avatar'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
 import { BaseMenuItem, MenuHeader, MenuItem, MenuSeparator } from '@/components/twc-ui/menu'
-import { useInitials } from '@/hooks/use-initials';
+import { useInitials } from '@/hooks/use-initials'
 export function NavUser({ user }: { user: App.Data.UserData }) {
-  const getInitials = useInitials();
+  const getInitials = useInitials()
 
   const handleLogout = () => {
     router.post(route('logout', {}, false))
   }
-  
+
   return (
     <DropdownButton
       menuClassName="min-w-64"
       triggerElement={
-      <Pressable>
+        <Pressable>
           <button type="button">
             <Avatar
               src={null}
@@ -35,7 +35,7 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
               fullname={user.name}
             />
           </button>
-      </Pressable>
+        </Pressable>
       }
     >
       <MenuHeader>
@@ -53,18 +53,9 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
         </div>
       </MenuHeader>
 
-      <MenuItem
-        icon={UserEdit01Icon}
-        title="Change profile"
-        ellipsis
-      />
+      <MenuItem icon={UserEdit01Icon} title="Change profile" ellipsis />
 
-      <MenuItem
-        icon={LockPasswordIcon}
-        title="Change Password"
-        ellipsis
-        separator
-      />
+      <MenuItem icon={LockPasswordIcon} title="Change Password" ellipsis separator />
 
       <MenuItem icon={Logout02Icon} title="Logout" onAction={() => handleLogout()} />
     </DropdownButton>

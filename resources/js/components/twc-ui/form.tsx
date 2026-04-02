@@ -1,13 +1,15 @@
 import type { FormDataConvertible } from '@inertiajs/core'
-import type { RequestMethod, SimpleValidationErrors, ValidationConfig } from 'laravel-precognition'
+import { createContext, useContext } from 'react'
 import type React from 'react'
-import { createContext, type FormEvent, type HTMLAttributes, useContext } from 'react'
-import { type FormValidationOptions, useForm as internalUseForm } from '@/hooks/use-twc-ui-form'
+import type { FormEvent, HTMLAttributes } from 'react'
+import { useForm as internalUseForm } from '@/hooks/use-twc-ui-form'
+import type { FormValidationOptions, RequestMethod } from '@/hooks/use-twc-ui-form'
 import { cn } from '@/lib/utils'
 import { FormErrors } from './form-errors'
 
 export type FormSchema = Record<string, FormDataConvertible>
 
+type SimpleValidationErrors = Record<string, string>
 type UseFormReturn<T extends FormSchema> = ReturnType<typeof internalUseForm<T>>
 type BaseFormProps = Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'>
 
@@ -17,7 +19,7 @@ type ExtendedForm<T extends FormSchema> = {
   className?: string
   method: RequestMethod
   action: string
-  config: ValidationConfig & FormValidationOptions
+  config: FormValidationOptions
   isDirty: boolean
   reset: UseFormReturn<T>['reset']
   register: UseFormReturn<T>['register']
@@ -31,7 +33,7 @@ type ExtendedForm<T extends FormSchema> = {
   processing: boolean
   submit: UseFormReturn<T>['submit']
   setData: UseFormReturn<T>['setData']
-  setErrors: UseFormReturn<T>['setErrors']
+  setError: UseFormReturn<T>['setError']
   validate: UseFormReturn<T>['validate']
   touched: UseFormReturn<T>['touched']
   transform: UseFormReturn<T>['transform']
@@ -51,11 +53,13 @@ const FormContext = createContext<FormContextValue | null>(null)
 interface FormProps<T extends FormSchema> extends BaseFormProps {
   form: ExtendedForm<T>
   children: React.ReactNode
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => Promise<void> | void
   onSubmitted?: () => void
   errorTitle?: string
   className?: string
   errorVariant?: 'form' | 'field'
   errorClassName?: string
+  preserveState?: boolean
 }
 
 export const Form = <T extends FormSchema>({
@@ -64,28 +68,49 @@ export const Form = <T extends FormSchema>({
   errorVariant = 'form',
   errorTitle,
   errorClassName,
+  onSubmit,
   onSubmitted,
   className,
+  preserveState = true,
   ...props
 }: FormProps<T>) => {
   if (!form) {
     console.error('Form component received undefined form prop')
+
     return null
   }
-  const handleSubmit = (
+
+  const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
   ): Promise<SimpleValidationErrors | boolean> => {
     e.preventDefault()
+
+    // If custom onSubmit is provided, call it instead of default behavior
+    if (onSubmit) {
+      try {
+        await onSubmit(e)
+        onSubmitted?.()
+
+        return Promise.resolve(true)
+      } catch (error) {
+        console.error('Error in custom onSubmit handler:', error)
+
+        return Promise.reject(error)
+      }
+    }
+
     return new Promise((resolve, reject) => {
       form.submit({
         preserveScroll: true,
-        onError: errors => {
+        preserveState,
+        onError: (errors: Record<string, string>) => {
           // Convert Inertia errors (string[]) to SimpleValidationErrors (string)
           const simpleErrors = Object.entries(errors).reduce((acc, [key, value]) => {
             acc[key] = Array.isArray(value) ? value[0] : value
+
             return acc
           }, {} as SimpleValidationErrors)
-          form.setErrors(simpleErrors)
+          form.setError(simpleErrors)
           reject(simpleErrors)
         },
         onSuccess: () => {
@@ -129,9 +154,11 @@ export const Form = <T extends FormSchema>({
 
 export const useFormContext = <T extends FormSchema = FormSchema>() => {
   const context = useContext(FormContext)
+
   if (context === null) {
     return null
   }
+
   return context as ExtendedForm<T> & {
     errorTitle?: string
     errorClass?: string
@@ -144,7 +171,7 @@ export function useForm<T extends FormSchema>(
   method: RequestMethod,
   action: string,
   data: T,
-  configOrClassName?: (ValidationConfig & FormValidationOptions) | string,
+  configOrClassName?: FormValidationOptions | string,
   className?: string
 ): ExtendedForm<T> {
   const config = typeof configOrClassName === 'string' ? {} : (configOrClassName ?? {})
@@ -170,7 +197,7 @@ export function useForm<T extends FormSchema>(
     submit: internalForm.submit,
     setData: internalForm.setData,
     reset: internalForm.reset,
-    setErrors: internalForm.setErrors,
+    setError: internalForm.setError,
     validate: internalForm.validate,
     touched: internalForm.touched,
     transform: internalForm.transform,

@@ -66,10 +66,7 @@ vi.mock('react-aria-components', () => ({
     ),
   Input: (allProps: any) => {
     // Extract and remove internal props first
-    const {
-      _textFieldProps,
-      ...propsWithoutInternal
-    } = allProps
+    const { _textFieldProps, ...propsWithoutInternal } = allProps
 
     // Extract known props, rest goes to DOM
     const {
@@ -84,7 +81,12 @@ vi.mock('react-aria-components', () => ({
       ...domProps
     } = propsWithoutInternal
 
-    const { isInvalid: contextInvalid, isDisabled, value: contextValue, onChange: contextOnChange } = _textFieldProps || {}
+    const {
+      isInvalid: contextInvalid,
+      isDisabled,
+      value: contextValue,
+      onChange: contextOnChange
+    } = _textFieldProps || {}
 
     // Use context values if available, otherwise use direct values
     const onChange = contextOnChange || directOnChange
@@ -92,7 +94,7 @@ vi.mock('react-aria-components', () => ({
     const invalid = contextInvalid ?? isInvalid
 
     return React.createElement('input', {
-      className: `flex h-9 w-full rounded-sm border border-input bg-background px-3 py-1 font-medium text-sm shadow-none outline-0 transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus:border-primary focus:ring-[3px] focus:ring-primary/20 ${className || ''} ${invalid ? 'data-invalid:border-destructive data-invalid:focus:border-destructive data-invalid:focus:ring-destructive/20' : ''} ${(isDisabled || disabled) ? 'data-disabled:cursor-not-allowed data-disabled:opacity-50' : ''}`,
+      className: `flex h-9 w-full rounded-sm border border-input bg-background px-3 py-1 font-medium text-sm shadow-none outline-0 transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus:border-primary focus:ring-[3px] focus:ring-primary/20 ${className || ''} ${invalid ? 'data-invalid:border-destructive data-invalid:focus:border-destructive data-invalid:focus:ring-destructive/20' : ''} ${isDisabled || disabled ? 'data-disabled:cursor-not-allowed data-disabled:opacity-50' : ''}`,
       'data-testid': dataTestId || 'text-input',
       'data-invalid': invalid ? 'true' : undefined,
       disabled: isDisabled || disabled || false,
