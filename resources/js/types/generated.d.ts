@@ -8,5 +8,7 @@ export type UserData = {
 id: number | null;
 name: string;
 email: string;
+avatar_url: string | null;
+pending_email: string | null;
 };
 }

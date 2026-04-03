@@ -61,6 +61,7 @@ export type FormValidationMode = 'change' | 'blur' | 'both' | 'none'
 
 export interface FormValidationOptions {
   validateOn?: FormValidationMode
+  onSuccess?: () => void
 }
 
 export function useForm<T extends Record<string, FormDataConvertible>>(

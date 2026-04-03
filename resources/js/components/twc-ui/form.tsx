@@ -1,9 +1,9 @@
 import type { FormDataConvertible } from '@inertiajs/core'
-import { createContext, useContext } from 'react'
 import type React from 'react'
 import type { FormEvent, HTMLAttributes } from 'react'
-import { useForm as internalUseForm } from '@/hooks/use-twc-ui-form'
+import { createContext, useContext } from 'react'
 import type { FormValidationOptions, RequestMethod } from '@/hooks/use-twc-ui-form'
+import { useForm as internalUseForm } from '@/hooks/use-twc-ui-form'
 import { cn } from '@/lib/utils'
 import { FormErrors } from './form-errors'
 
@@ -63,7 +63,7 @@ interface FormProps<T extends FormSchema> extends BaseFormProps {
   preserveState?: boolean
 }
 
-export const Form = <T extends FormSchema> ({
+export const Form = <T extends FormSchema>({
   form,
   children,
   errorVariant = 'form',
@@ -139,21 +139,21 @@ export const Form = <T extends FormSchema> ({
         className={cn('w-full', className)}
         {...props}
       >
-          {form.errors && (
-            <FormErrors
-              className={errorClassName}
-              errors={form.errors}
-              title={errorTitle}
-              showErrors={errorVariant === 'form'}
-            />
-          )}
+        {form.errors && (
+          <FormErrors
+            className={errorClassName}
+            errors={form.errors}
+            title={errorTitle}
+            showErrors={errorVariant === 'form'}
+          />
+        )}
         <fieldset disabled={form.processing}>{children}</fieldset>
       </form>
     </FormContext.Provider>
   )
 }
 
-export const useFormContext = <T extends FormSchema = FormSchema> () => {
+export const useFormContext = <T extends FormSchema = FormSchema>() => {
   const context = useContext(FormContext)
 
   if (context === null) {
@@ -167,7 +167,7 @@ export const useFormContext = <T extends FormSchema = FormSchema> () => {
   }
 }
 
-export function useForm<T extends FormSchema> (
+export function useForm<T extends FormSchema>(
   id: string,
   method: RequestMethod,
   action: string,
@@ -178,6 +178,16 @@ export function useForm<T extends FormSchema> (
   const config = typeof configOrClassName === 'string' ? {} : (configOrClassName ?? {})
   const resolvedClassName = typeof configOrClassName === 'string' ? configOrClassName : className
   const internalForm = internalUseForm(method, action, data, config)
+
+  const submit = (options?: any) => {
+    internalForm.submit({
+      ...options,
+      onSuccess: () => {
+        options?.onSuccess?.()
+        config.onSuccess?.()
+      }
+    })
+  }
 
   return {
     id,
@@ -196,7 +206,7 @@ export function useForm<T extends FormSchema> (
     data: internalForm.data,
     errors: internalForm.errors,
     processing: internalForm.processing,
-    submit: internalForm.submit,
+    submit,
     setData: internalForm.setData,
     reset: internalForm.reset,
     setError: internalForm.setError,
@@ -205,7 +215,8 @@ export function useForm<T extends FormSchema> (
     transform: internalForm.transform,
     form: {
       id,
-      ...internalForm
+      ...internalForm,
+      submit
     }
   }
 }

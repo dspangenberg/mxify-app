@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react'
-import { Head, usePage } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 import { Alert } from '@/components/twc-ui/alert'
 import { AvatarUpload } from '@/components/twc-ui/avatar-upload'
 import { Button } from '@/components/twc-ui/button'
@@ -9,7 +9,6 @@ import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormTextField } from '@/components/twc-ui/form-text-field'
 import { useInitials } from '@/hooks/use-initials'
 import type { SharedData } from '@/types'
-import type * as React from 'react'
 
 type ProfileForm = {
   name: string
@@ -43,6 +42,14 @@ export default function Profile() {
     }
   }
 
+  const handleResendVerificationEmail = () => {
+    router.post(route('verification.send'))
+  }
+
+  const handleClearPendingMailAddress = async () => {
+    router.post(route('app.profile.clear-pending-mail-address'))
+  }
+
   return (
     <FormCard
       className="mx-auto flex w-full max-w-4xl flex-1"
@@ -57,7 +64,7 @@ export default function Profile() {
               leave="transition ease-in-out"
               leaveTo="opacity-0"
             >
-              <p className='text-sm text-success'>Profile updated successfully.</p>
+              <p className="text-sm text-success">Profile updated successfully.</p>
             </Transition>
           </div>
           <Button
@@ -70,24 +77,37 @@ export default function Profile() {
         </>
       }
     >
-      <Head title="Settings - Profile" />
-      <Alert
-        variant="warning"
-        actions={
-          <div className="flex gap-2">
-            <Button size="auto" variant="link" title="Resend Email" className="text-yellow-700" />
-            <Button variant="link" size="auto" title="Undo" className="text-yellow-700" />
-          </div>
-        }
-      >
-        Your updated email address, joe.doe@example.com has not yet been confirmed.
-      </Alert>
+      {auth.user.pending_email && (
+        <Alert
+          variant="warning"
+          actions={
+            <div className="flex items-center gap-2">
+              <Button
+                variant="link"
+                title="Resend Email"
+                className="text-yellow-700"
+                onClick={handleResendVerificationEmail}
+              />
+              <Button
+                variant="link"
+                size="auto"
+                title="Undo"
+                tooltip="Undo"
+                className="text-yellow-700"
+                onClick={handleClearPendingMailAddress}
+              />
+            </div>
+          }
+        >
+          Your updated email address, {auth.user.pending_email} has not yet been confirmed.
+        </Alert>
+      )}
       <Form form={form}>
         <FormGrid>
           <div className="col-span-2 inline-flex items-center justify-center">
             <div>
               <AvatarUpload
-                src={null}
+                src={auth.user.avatar_url}
                 fullname={auth.user.name}
                 initials={getInitials(auth.user.name)}
                 size="lg"

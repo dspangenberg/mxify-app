@@ -21,7 +21,7 @@ export function AppPage({ children, tabs, ...props }: AppContentProps) {
         </div>
       </header>
       <main className='flex h-full w-full flex-1 flex-col gap-4 bg-stone-50 py-6 dark:bg-stone-900'>
-        <div className="mx-auto max-w-6xl">{children}</div>
+        {children}
       </main>
     </div>
   )

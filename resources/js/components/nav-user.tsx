@@ -28,7 +28,7 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
         <Pressable>
           <button type="button">
             <Avatar
-              src={null}
+              src={user.avatar_url as string}
               initials={getInitials(user.name)}
               alt="Profile picture"
               fullname={user.name}
@@ -40,7 +40,7 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
       <MenuHeader>
         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
           <Avatar
-            src={null}
+            src={user.avatar_url as string}
             initials={getInitials(user.name)}
             alt="Profile picture"
             fullname={user.name}
