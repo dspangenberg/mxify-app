@@ -2,7 +2,6 @@ import type { PropsWithChildren } from 'react'
 import { AppContent } from '@/components/app-content'
 import { AppHeader } from '@/components/app-header'
 import { AppShell } from '@/components/app-shell'
-import { TwicewareSolution } from '@/components/twc-ui/TwicewareSolution'
 import type { BreadcrumbItem } from '@/types'
 
 export default function AppHeaderLayout({
@@ -12,7 +11,7 @@ export default function AppHeaderLayout({
   return (
     <AppShell>
       <AppHeader breadcrumbs={breadcrumbs} />
-      <AppContent className="mx-auto w-full max-w-6xl flex-1 overflow-scroll">
+      <AppContent className="w-full flex-1 overflow-scroll bg-stone-50 dark:bg-stone-900">
         {children}
       </AppContent>
     </AppShell>

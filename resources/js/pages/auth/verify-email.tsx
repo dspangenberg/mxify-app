@@ -2,10 +2,10 @@
 import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle } from 'lucide-react'
 import type { FormEventHandler } from 'react'
+import { Alert } from '@/components/twc-ui/alert'
 
 import TextLink from '@/components/text-link'
 import { Button } from '@/components/ui/button'
-import AuthLayout from '@/layouts/auth-layout'
 
 export default function VerifyEmail({ status }: { status?: string }) {
   const { post, processing } = useForm({})
@@ -17,17 +17,14 @@ export default function VerifyEmail({ status }: { status?: string }) {
   }
 
   return (
-    <AuthLayout
-      title="Verify email"
-      description="Please verify your email address by clicking on the link we just emailed to you."
-    >
+    <>
       <Head title="Email verification" />
 
       {status === 'verification-link-sent' && (
-        <div className="mb-4 text-center font-medium text-green-600 text-sm">
-          A new verification link has been sent to the email address you provided during
-          registration.
-        </div>
+        <Alert variant="success" title="Let's move on">
+          A new verification link has been sent to your email
+          address.
+        </Alert>
       )}
 
       <form onSubmit={submit} className="space-y-6 text-center">
@@ -40,6 +37,12 @@ export default function VerifyEmail({ status }: { status?: string }) {
           Log out
         </TextLink>
       </form>
-    </AuthLayout>
+    </>
   )
 }
+
+VerifyEmail.layout = {
+  title: 'Verify email',
+  description:
+    'Please verify your email address by clicking on the link we just emailed to you.',
+};

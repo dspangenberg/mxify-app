@@ -1,137 +1,156 @@
 import { Transition } from '@headlessui/react'
-import { Head, Link, useForm, usePage } from '@inertiajs/react'
-import type { FormEventHandler } from 'react'
-import DeleteUser from '@/components/delete-user'
-import HeadingSmall from '@/components/heading-small'
-import InputError from '@/components/input-error'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import AppLayout from '@/layouts/app-layout'
-import SettingsLayout from '@/layouts/settings/layout'
-import type { BreadcrumbItem, SharedData } from '@/types'
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Profile settings',
-    href: '/settings/profile'
-  }
-]
+import { router, usePage } from '@inertiajs/react'
+import { Alert } from '@/components/twc-ui/alert'
+import { AvatarUpload } from '@/components/twc-ui/avatar-upload'
+import { Button } from '@/components/twc-ui/button'
+import { Form, useForm } from '@/components/twc-ui/form'
+import { FormCard } from '@/components/twc-ui/form-card'
+import { FormGrid } from '@/components/twc-ui/form-grid'
+import { FormTextField } from '@/components/twc-ui/form-text-field'
+import { useInitials } from '@/hooks/use-initials'
+import type { SharedData } from '@/types'
 
 type ProfileForm = {
   name: string
   email: string
+  avatar: File | null
+  remove_avatar: boolean
 }
 
-export default function Profile({
-  mustVerifyEmail,
-  status
-}: {
-  mustVerifyEmail: boolean
-  status?: string
-}) {
+export default function Profile() {
   const { auth } = usePage<SharedData>().props
+  const getInitials = useInitials()
 
-  const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<
-    Required<ProfileForm>
-  >({
-    name: auth.user.name,
-    email: auth.user.email
-  })
+  const form = useForm<ProfileForm>(
+    'auth-login-form',
+    'patch',
+    route('app.profile.update'),
+    {
+      email: auth.user.email,
+      name: auth.user.name,
+      avatar: null,
+      remove_avatar: false
+    },
+    { validateOn: 'blur' }
+  )
 
-  const submit: FormEventHandler = e => {
-    e.preventDefault()
+  const handleAvatarChange = (avatar: File | undefined) => {
+    if (avatar) {
+      form.setData('avatar', avatar)
+    } else {
+      form.setData('remove_avatar', true)
+    }
+  }
 
-    patch(route('profile.update'), {
-      preserveScroll: true
-    })
+  const handleResendVerificationEmail = () => {
+    router.post(route('verification.send'))
+  }
+
+  const handleClearPendingMailAddress = async () => {
+    router.post(route('app.profile.clear-pending-mail-address'))
   }
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Profile settings" />
-
-      <SettingsLayout>
-        <div className="space-y-6">
-          <HeadingSmall
-            title="Profile information"
-            description="Update your name and email address"
+    <FormCard
+      className="mx-auto flex w-full max-w-4xl flex-1"
+      footerClassName="flex justify-between gap-2"
+      footer={
+        <>
+          <div className="flex-1">
+            <Transition
+              show={form.recentlySuccessful}
+              enter="transition ease-in-out"
+              enterFrom="opacity-0"
+              leave="transition ease-in-out"
+              leaveTo="opacity-0"
+            >
+              <p className="text-sm text-success">Profile updated successfully.</p>
+            </Transition>
+          </div>
+          <Button
+            form={form.id}
+            type="submit"
+            variant="default"
+            title="Update Profile"
+            isLoading={form.processing}
           />
-
-          <form onSubmit={submit} className="space-y-6">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-
-              <Input
-                id="name"
-                className="mt-1 block w-full"
-                value={data.name}
-                onChange={e => setData('name', e.target.value)}
-                required
-                autoComplete="name"
-                placeholder="Full name"
+        </>
+      }
+    >
+      {auth.user.pending_email && (
+        <Alert
+          variant="warning"
+          actions={
+            <div className="flex items-center gap-2">
+              <Button
+                variant="link"
+                title="Resend Email"
+                className="text-yellow-700"
+                onClick={handleResendVerificationEmail}
               />
-
-              <InputError className="mt-2" message={errors.name} />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email address</Label>
-
-              <Input
-                id="email"
-                type="email"
-                className="mt-1 block w-full"
-                value={data.email}
-                onChange={e => setData('email', e.target.value)}
-                required
-                autoComplete="username"
-                placeholder="Email address"
+              <Button
+                variant="link"
+                size="auto"
+                title="Undo"
+                tooltip="Undo"
+                className="text-yellow-700"
+                onClick={handleClearPendingMailAddress}
               />
-
-              <InputError className="mt-2" message={errors.email} />
             </div>
-
-            {mustVerifyEmail && auth.user.email_verified_at === null && (
-              <div>
-                <p className="-mt-4 text-muted-foreground text-sm">
-                  Your email address is unverified.{' '}
-                  <Link
-                    href={route('verification.send')}
-                    method="post"
-                    as="button"
-                    className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
-                  >
-                    Click here to resend the verification email.
-                  </Link>
-                </p>
-
-                {status === 'verification-link-sent' && (
-                  <div className="mt-2 font-medium text-green-600 text-sm">
-                    A new verification link has been sent to your email address.
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div className="flex items-center gap-4">
-              <Button disabled={processing}>Save</Button>
-
-              <Transition
-                show={recentlySuccessful}
-                enter="transition ease-in-out"
-                enterFrom="opacity-0"
-                leave="transition ease-in-out"
-                leaveTo="opacity-0"
-              >
-                <p className="text-neutral-600 text-sm">Saved</p>
-              </Transition>
+          }
+        >
+          Your updated email address, {auth.user.pending_email} has not yet been confirmed.
+        </Alert>
+      )}
+      <Form form={form}>
+        <FormGrid>
+          <div className="col-span-2 inline-flex items-center justify-center">
+            <div>
+              <AvatarUpload
+                src={auth.user.avatar_url}
+                fullname={auth.user.name}
+                initials={getInitials(auth.user.name)}
+                size="lg"
+                onSelect={item => handleAvatarChange(item)}
+              />
             </div>
-          </form>
-        </div>
-
-        <DeleteUser />
-      </SettingsLayout>
-    </AppLayout>
+          </div>
+          <div className="col-span-11">
+            <FormTextField
+              autoFocus
+              label="Name"
+              isRequired
+              placeholder="Full name"
+              {...form.register('name')}
+            />
+          </div>
+          <div className="col-span-11">
+            <FormTextField
+              isRequired
+              label="Email address"
+              placeholder="Full name"
+              {...form.register('email')}
+            />
+          </div>
+        </FormGrid>
+      </Form>
+    </FormCard>
   )
+}
+
+Profile.layout = {
+  breadcrumbs: [
+    {
+      title: 'Dashboard',
+      href: route('app.dashboard')
+    },
+    {
+      title: 'Account settings',
+      href: route('app.settings')
+    },
+    {
+      title: 'Profile',
+      href: route('app.profile.edit')
+    }
+  ]
 }

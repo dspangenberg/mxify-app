@@ -8,8 +8,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Plank\Mediable\Exceptions\MediaUpload\ConfigurationException;
+use Plank\Mediable\Exceptions\MediaUpload\FileExistsException;
+use Plank\Mediable\Exceptions\MediaUpload\FileNotFoundException;
+use Plank\Mediable\Exceptions\MediaUpload\FileNotSupportedException;
+use Plank\Mediable\Exceptions\MediaUpload\FileSizeException;
+use Plank\Mediable\Exceptions\MediaUpload\ForbiddenException;
+use Plank\Mediable\Exceptions\MediaUpload\InvalidHashException;
+use Plank\Mediable\Facades\MediaUploader;
 
 class ProfileController extends Controller
 {
@@ -26,18 +35,59 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile settings.
+     *
+     * @throws ConfigurationException
+     * @throws ForbiddenException
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $data = $request->safe()->except('avatar', 'email', 'remove_avatar');
+        $newEmail = $request->validated('email');
 
-        if ($request->user()->isDirty('email')) {
+        $request->user()->fill($data);
+
+        if ($newEmail !== $request->user()->email) {
+            $request->user()->email = $newEmail;
             $request->user()->email_verified_at = null;
+            $request->user()->newEmail($newEmail);
         }
 
         $request->user()->save();
 
-        return to_route('profile.edit');
+        if ($request->hasFile('avatar')) {
+            $request->user()->detachMediaTags('avatar');
+
+            try {
+                $media = MediaUploader::fromSource($request->file('avatar'))
+                    ->toDestination('public', 'avatars/users')
+                    ->upload();
+                $request->user()->attachMedia($media, 'avatar');
+            } catch (ConfigurationException|FileExistsException|FileNotFoundException|FileNotSupportedException|FileSizeException|ForbiddenException|InvalidHashException) {
+
+            }
+        } else {
+            if ($request->input('remove_avatar', false)) {
+                if ($request->user()->firstMedia('avatar')) {
+                    $request->user()->detachMediaTags('avatar');
+                }
+            }
+        }
+
+        return to_route('app.profile.edit');
+    }
+
+    public function resendVerificationEmail(Request $request): RedirectResponse
+    {
+        $request->user()->resendPendingEmailVerificationMail();
+
+        return Redirect::back();
+    }
+
+    public function clearPendingMailAddress(Request $request)
+    {
+        $request->user()->clearPendingEmail();
+
+        return redirect()->back();
     }
 
     /**

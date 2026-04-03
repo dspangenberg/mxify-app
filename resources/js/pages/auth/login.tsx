@@ -1,14 +1,10 @@
-import { Head, useForm } from '@inertiajs/react'
-import { LoaderCircle } from 'lucide-react'
-import type { FormEventHandler } from 'react'
-
-import InputError from '@/components/input-error'
-import TextLink from '@/components/text-link'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import AuthLayout from '@/layouts/auth-layout'
+import { Head, Link } from '@inertiajs/react'
+import { Button } from '@/components/twc-ui/button'
+import { Checkbox } from '@/components/twc-ui/checkbox'
+import { Form, useForm } from '@/components/twc-ui/form'
+import { FormGrid } from '@/components/twc-ui/form-grid'
+import { FormPasswordField } from '@/components/twc-ui/form-password-field'
+import { FormTextField } from '@/components/twc-ui/form-text-field'
 
 type LoginForm = {
   email: string
@@ -19,97 +15,86 @@ type LoginForm = {
 interface LoginProps {
   status?: string
   canResetPassword: boolean
+  canRegister: boolean
 }
 
-export default function Login({ status, canResetPassword }: LoginProps) {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
-    email: '',
-    password: '',
-    remember: false
-  })
+export default function Login({ status, canRegister, canResetPassword }: LoginProps) {
+  const form = useForm<App.Data.LoginData>(
+    'auth-login-form',
+    'post',
+    route('login'),
+    {
+      email: '',
+      password: '',
+      remember: false
+    },
+    { validateOn: 'blur' }
+  )
 
-  const submit: FormEventHandler = e => {
-    e.preventDefault()
-    post(route('login'), {
-      onFinish: () => reset('password')
-    })
-  }
 
   return (
-    <AuthLayout
-      title="Log in to your account"
-      description="Enter your email and password below to log in"
-    >
+    <>
       <Head title="Log in" />
 
-      <form className="flex flex-col gap-6" onSubmit={submit}>
-        <div className="grid gap-6">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email address</Label>
-            <Input
-              id="email"
-              type="email"
-              required
+      <Form form={form}>
+        <FormGrid>
+          <div className="col-span-24">
+            <FormTextField
+              autoComplete="username"
+              label="E-Mail"
               autoFocus
-              tabIndex={1}
-              autoComplete="email"
-              value={data.email}
-              onChange={e => setData('email', e.target.value)}
-              placeholder="email@example.com"
+              {...form.register('email')}
             />
-            <InputError message={errors.email} />
           </div>
+          <div className="col-span-24">
+            <FormPasswordField
+              label="Kennwort"
+              {...form.register('password')}
+              labelAddon={
+                <span>
+                  {canResetPassword && (
+                    <Link
+                      href={route('password.request')}
+                      className="rounded-xs text-gray-600 text-sm underline hover:text-gray-900"
+                    >
+                      Forgot password?
+                    </Link>
+                  )}
+                </span>
+              }
+            />
 
-          <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              {canResetPassword && (
-                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                  Forgot password?
-                </TextLink>
-              )}
+            <div className="mt-1">
+              <Checkbox {...form.registerCheckbox('remember')} className="pt-1.5">
+                Remember me
+              </Checkbox>
             </div>
-            <Input
-              id="password"
-              type="password"
-              required
-              tabIndex={2}
-              autoComplete="current-password"
-              value={data.password}
-              onChange={e => setData('password', e.target.value)}
-              placeholder="Password"
-            />
-            <InputError message={errors.password} />
           </div>
-
-          <div className="flex items-center space-x-3">
-            <Checkbox
-              id="remember"
-              name="remember"
-              checked={data.remember}
-              onClick={() => setData('remember', !data.remember)}
-              tabIndex={3}
+          <div className="col-span-24">
+            <Button
+              type="submit"
+              className="mt-4 w-full"
+              isDisabled={form.processing}
+              isLoading={form.processing}
+              title="Login"
             />
-            <Label htmlFor="remember">Remember me</Label>
+            {canRegister && (
+              <div className='text-center text-muted-foreground text-sm mt-3'>
+                Don't have an account? <Link href={route('register')} className="underline">Sign up</Link>
+              </div>
+            )}
           </div>
-
-          <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-            Log in
-          </Button>
-        </div>
-
-        <div className="text-center text-muted-foreground text-sm">
-          Don't have an account?{' '}
-          <TextLink href={route('register')} tabIndex={5}>
-            Sign up
-          </TextLink>
-        </div>
-      </form>
+        </FormGrid>
+      </Form>
 
       {status && (
         <div className="mb-4 text-center font-medium text-green-600 text-sm">{status}</div>
       )}
-    </AuthLayout>
+    </>
   )
+}
+
+Login.layout = {
+  title: 'Log in to your account',
+  description: 'Enter your email and password below to log in'
 }

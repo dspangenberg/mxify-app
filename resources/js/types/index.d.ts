@@ -29,6 +29,7 @@ export interface SharedData {
   auth: Auth
   ziggy: Config & { location: string }
   sidebarOpen: boolean
+  canRegister: boolean
   [key: string]: unknown
 }
 
@@ -37,6 +38,8 @@ export interface User {
   name: string
   email: string
   avatar?: string
+  avatar_url: string | null
+  pending_email: string | null
   email_verified_at: string | null
   created_at: string
   updated_at: string

@@ -6,11 +6,7 @@ vi.mock('@hugeicons/react', () => ({
   HugeiconsIcon: vi.fn(({ icon, strokeWidth, className, ...props }: any) => {
     const strokeWidthValue = strokeWidth ? strokeWidth.toString() : '1.5'
     return (
-      <div
-        className={`h-4 w-4 ${className || ''}`}
-        data-stroke-width={strokeWidthValue}
-        {...props}
-      >
+      <div className={`h-4 w-4 ${className || ''}`} data-stroke-width={strokeWidthValue} {...props}>
         MockHugeIcon-{JSON.stringify(icon)}
       </div>
     )

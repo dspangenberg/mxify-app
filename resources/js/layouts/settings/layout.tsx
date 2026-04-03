@@ -1,68 +1,34 @@
-import { Link } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import type { PropsWithChildren } from 'react'
-import Heading from '@/components/heading'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
-import type { NavItem } from '@/types'
-
-const sidebarNavItems: NavItem[] = [
-  {
-    title: 'Profile',
-    href: '/settings/profile',
-    icon: null
-  },
-  {
-    title: 'Password',
-    href: '/settings/password',
-    icon: null
-  },
-  {
-    title: 'Appearance',
-    href: '/settings/appearance',
-    icon: null
-  }
-]
+import { AppPage } from '@/components/app-page'
+import { Tab, TabList, Tabs } from '@/components/twc-ui/tabs'
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
-  // When server-side rendering, we only render the layout on the client...
-  if (typeof window === 'undefined') {
-    return null
-  }
+  const { url } = usePage()
 
-  const currentPath = window.location.pathname
+  const tabs = (
+    <Tabs variant="underlined" selectedKey={url}>
+      <TabList aria-label="Tabs">
+        <Tab id={route('app.profile.edit', {}, false)} href={route('app.profile.edit')}>
+          Profile
+        </Tab>
+        <Tab id={route('app.password.edit', {}, false)} href={route('app.password.edit')}>
+          Password
+        </Tab>
+        <Tab id={route('app.api-tokens.index', {}, false)} href={route('app.api-tokens.index')}>
+          Personal access tokens
+        </Tab>
+      </TabList>
+    </Tabs>
+  )
 
   return (
-    <div className="px-4 py-6">
-      <Heading title="Settings" description="Manage your profile and account settings" />
-
-      <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="w-full max-w-xl lg:w-48">
-          <nav className="flex flex-col space-x-0 space-y-1">
-            {sidebarNavItems.map((item, index) => (
-              <Button
-                key={`${item.href}-${index}`}
-                size="sm"
-                variant="ghost"
-                asChild
-                className={cn('w-full justify-start', {
-                  'bg-muted': currentPath === item.href
-                })}
-              >
-                <Link href={item.href} prefetch>
-                  {item.title}
-                </Link>
-              </Button>
-            ))}
-          </nav>
-        </aside>
-
-        <Separator className="my-6 md:hidden" />
-
-        <div className="flex-1 md:max-w-2xl">
-          <section className="max-w-xl space-y-12">{children}</section>
-        </div>
-      </div>
-    </div>
+    <AppPage
+      title="Account settings"
+      description="Manage your profile and account settings."
+      tabs={tabs}
+    >
+      {children}
+    </AppPage>
   )
 }

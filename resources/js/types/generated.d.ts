@@ -1,24 +1,21 @@
 declare namespace App.Data {
-export type ContactData = {
-id: number | null;
-first_name: string;
-last_name: string;
-email: string;
-gender: string;
-note: string | null;
-is_vip: boolean;
-hourly: number;
-country_id: number | null;
-dob: any | null;
-};
-export type CountryData = {
+export type ApiTokenData = {
 id: number | null;
 name: string;
-iso_code: string;
+expires_at: string | null;
+last_used_at: string | null;
+abilities: Array<string>;
+};
+export type LoginData = {
+email: string;
+password: string;
+remember: boolean | null;
 };
 export type UserData = {
 id: number | null;
 name: string;
 email: string;
+avatar_url: string | null;
+pending_email: string | null;
 };
 }

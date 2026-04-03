@@ -18,7 +18,7 @@ const Input = ({ className, ...props }: AriaInputProps) => {
     <AriaInput
       className={composeRenderProps(className, className =>
         cn(
-          'flex h-9 w-full rounded-sm border border-input bg-background px-3 py-1 font-medium text-sm shadow-none outline-0 transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground',
+          'flex h-9 w-full rounded-sm border border-input bg-background px-3 py-1 font-bold text-sm shadow-none outline-0 transition-colors file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground',
           /* Disabled */
           'data-disabled:cursor-not-allowed data-disabled:opacity-50',
           /* Focused */
@@ -36,6 +36,7 @@ const Input = ({ className, ...props }: AriaInputProps) => {
 
 interface TextFieldProps extends Omit<AriaTextFieldProps, 'value' | 'onChange'> {
   label?: string
+  labelAddon?: React.ReactNode
   description?: string
   placeholder?: string
   onChange?: ((value: string | null) => void) | ((value: string) => void)
@@ -51,6 +52,7 @@ interface TextFieldProps extends Omit<AriaTextFieldProps, 'value' | 'onChange'> 
 
 const TextField = ({
   label,
+  labelAddon,
   description,
   isRequired = false,
   className,
@@ -75,7 +77,7 @@ const TextField = ({
       onChange={handleChange}
       {...props}
     >
-      {label && <Label isRequired={isRequired} value={label} />}
+      {label && <Label isRequired={isRequired} value={label} addOn={labelAddon}/>}
       <Input autoComplete={autoComplete} placeholder={placeholder} />
       {description && <FieldDescription>{description}</FieldDescription>}
       <ErrorComponent>{errorMessage}</ErrorComponent>

@@ -1,22 +1,9 @@
 import { Head } from '@inertiajs/react'
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
-import AppLayout from '@/layouts/app-layout'
-import type { BreadcrumbItem } from '@/types'
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: route('app.dashboard')
-  },
-  {
-    title: 'Bald',
-    href: '/placeholder'
-  }
-]
 
 export default function Placeholder() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <>
       <Head title="Bald" />
       <div className="flex h-screen flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
         Bald
@@ -24,6 +11,18 @@ export default function Placeholder() {
           <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
         </div>
       </div>
-    </AppLayout>
+    </>
   )
+}
+Placeholder.layout = {
+  breadcrumbs: [
+    {
+      title: 'Dashboard',
+      href: route('app.dashboard')
+    },
+    {
+      title: 'Bald',
+      href: '/placeholder'
+    }
+  ]
 }

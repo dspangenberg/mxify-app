@@ -24,29 +24,6 @@ import AppLogo from './app-logo'
 import AppLogoIcon from './app-logo-icon'
 import { NavUser } from './nav-user'
 
-const mainNavItems: NavItem[] = [
-  {
-    title: 'Dashboard',
-    href: route('app.dashboard', {}, false),
-    icon: DashboardSquare03Icon
-  },
-  {
-    title: 'Zones',
-    href: route('app.placeholder', {}, false),
-    icon: ServerStack01Icon
-  },
-  {
-    title: 'Recipients',
-    href: route('app.placeholder', {}, false),
-    icon: MailAccount02Icon
-  },
-  {
-    title: 'Setup',
-    href: route('app.placeholder', {}, false),
-    icon: Settings02Icon
-  }
-]
-
 const rightNavItems: NavItem[] = []
 
 const activeItemStyles = 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100'
@@ -59,10 +36,31 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const user = page.props.auth.user
 
-  console.log(page.url, route('app.dashboard', {}, false))
+  const mainNavItems: NavItem[] = [
+    {
+      title: 'Dashboard',
+      href: route('app.dashboard', {}, false),
+      icon: DashboardSquare03Icon
+    },
+    {
+      title: 'Zones',
+      href: route('app.placeholder', {}, false),
+      icon: ServerStack01Icon
+    },
+    {
+      title: 'Recipients',
+      href: route('app.placeholder', {}, false),
+      icon: MailAccount02Icon
+    },
+    {
+      title: 'Setup',
+      href: route('app.placeholder', {}, false),
+      icon: Settings02Icon
+    }
+  ]
   return (
     <>
-      <div className="border-sidebar-border/80 border-b">
+      <div className="border-sidebar-border/80 border-b bg-stone-100 dark:bg-neutral-800">
         <div className="mx-auto flex h-16 items-center px-4 md:max-w-6xl">
           {/* Mobile Menu */}
           <div className="lg:hidden">
@@ -83,7 +81,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
               >
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <SheetHeader className="flex justify-start text-left">
-                  <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+                  <AppLogoIcon className="h-8 w-8 rounded-md fill-current text-black dark:text-white" />
                 </SheetHeader>
                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                   <div className="flex h-full flex-col justify-between text-sm">
@@ -124,13 +122,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             </Sheet>
           </div>
 
-          <Link href="/" prefetch className="flex w-36 items-center space-x-2">
+          <Link href={route('app.dashboard')} prefetch className='flex w-36 items-center'>
             <AppLogo />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="ml-6 hidden h-full w-full items-center space-x-6 lg:flex">
-            <NavigationMenu className="flex h-full flex-1 items-stretch">
+            <NavigationMenu className='mx-auto flex h-full flex-1 items-stretch'>
               <NavigationMenuList className="flex h-full items-stretch justify-center space-x-2">
                 {mainNavItems.map((item, index) => (
                   <NavigationMenuItem key={index} className="relative flex h-full items-center">
@@ -189,13 +187,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           </div>
         </div>
       </div>
-      {breadcrumbs.length > 1 && (
+
         <div className="flex w-full border-sidebar-border/80 border-b">
           <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-6xl">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
           </div>
         </div>
-      )}
+
     </>
   )
 }

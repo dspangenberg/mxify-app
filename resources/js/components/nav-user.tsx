@@ -6,42 +6,41 @@
 import {
   LockPasswordIcon,
   Logout02Icon,
-  UserEdit01Icon,
-  UserSwitchIcon
+  AccountSetting01Icon
 } from '@hugeicons/core-free-icons'
 import { router } from '@inertiajs/react'
 import { Pressable } from 'react-aria-components'
 import { Avatar } from '@/components/twc-ui/avatar'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
 import { BaseMenuItem, MenuHeader, MenuItem, MenuSeparator } from '@/components/twc-ui/menu'
-import { useInitials } from '@/hooks/use-initials';
+import { useInitials } from '@/hooks/use-initials'
 export function NavUser({ user }: { user: App.Data.UserData }) {
-  const getInitials = useInitials();
+  const getInitials = useInitials()
 
   const handleLogout = () => {
     router.post(route('logout', {}, false))
   }
-  
+
   return (
     <DropdownButton
       menuClassName="min-w-64"
       triggerElement={
-      <Pressable>
+        <Pressable>
           <button type="button">
             <Avatar
-              src={null}
+              src={user.avatar_url as string}
               initials={getInitials(user.name)}
               alt="Profile picture"
               fullname={user.name}
             />
           </button>
-      </Pressable>
+        </Pressable>
       }
     >
       <MenuHeader>
         <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
           <Avatar
-            src={null}
+            src={user.avatar_url as string}
             initials={getInitials(user.name)}
             alt="Profile picture"
             fullname={user.name}
@@ -53,19 +52,7 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
         </div>
       </MenuHeader>
 
-      <MenuItem
-        icon={UserEdit01Icon}
-        title="Change profile"
-        ellipsis
-      />
-
-      <MenuItem
-        icon={LockPasswordIcon}
-        title="Change Password"
-        ellipsis
-        separator
-      />
-
+      <MenuItem icon={AccountSetting01Icon} title="Account settings" ellipsis separator href={route('app.settings')}/>
       <MenuItem icon={Logout02Icon} title="Logout" onAction={() => handleLogout()} />
     </DropdownButton>
   )

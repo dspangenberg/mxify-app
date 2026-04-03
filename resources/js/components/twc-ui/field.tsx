@@ -1,3 +1,4 @@
+import type React from 'react'
 import {
   FieldError as AriaFieldError,
   type FieldErrorProps as AriaFieldErrorProps,
@@ -14,7 +15,7 @@ import { cn } from '@/lib/utils'
 
 const labelVariants = tv({
   base: [
-    'font-normal text-sm leading-none',
+    'flex w-full items-center font-normal text-sm leading-none',
     /* Disabled */
     'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70',
     /* Invalid */
@@ -25,9 +26,10 @@ const labelVariants = tv({
 interface LabelProps extends AriaLabelProps {
   isRequired?: boolean
   value?: string
+  addOn?: React.ReactNode
 }
 
-const Label = ({ className, children, value, isRequired = false, ...props }: LabelProps) => {
+const Label = ({ addOn, className, children, value, isRequired = false, ...props }: LabelProps) => {
   const valueWithColon = value ? `${value}:` : ''
   return (
     <AriaLabel className={cn(labelVariants(), className)} {...props}>
@@ -38,6 +40,7 @@ const Label = ({ className, children, value, isRequired = false, ...props }: Lab
           {valueWithColon ?? ''} {isRequired && <span className="text-destructive">*</span>}
         </span>
       )}
+      {addOn && <span className="ml-auto">{addOn}</span>}
     </AriaLabel>
   )
 }
@@ -54,10 +57,7 @@ function FieldDescription({ className, ...props }: AriaTextProps) {
 
 function FieldError({ className, ...props }: AriaFieldErrorProps) {
   return (
-    <AriaFieldError
-      className={cn('font-medium text-[0.8rem] text-destructive', className)}
-      {...props}
-    />
+    <AriaFieldError className={cn('font-normal text-destructive text-sm', className)} {...props} />
   )
 }
 
@@ -86,7 +86,10 @@ function FieldGroup({ className, variant, ...props }: GroupProps) {
   return (
     <AriaGroup
       className={composeRenderProps(className, className =>
-        fieldGroupVariants({ variant, className })
+        fieldGroupVariants({
+          variant,
+          className
+        })
       )}
       {...props}
     />
