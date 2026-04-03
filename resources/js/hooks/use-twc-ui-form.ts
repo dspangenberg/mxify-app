@@ -95,14 +95,18 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
   }
 
   const validateFormField = (name: string) => {
-    // Convert array notation to dot notation for Laravel validation
     const laravelName = name.replace(/\[(\d+)]/g, '.$1')
     ;(form as any).validate(laravelName)
   }
 
+  const touchAndValidateFormField = (name: string) => {
+    const laravelName = name.replace(/\[(\d+)]/g, '.$1')
+    ;(form as any).touch(laravelName)
+    // validate() without args validates all touched fields, even if value is unchanged
+    ;(form as any).validate()
+  }
+
   const touchFormField = (name: string) => {
-    // Convert array notation to dot notation for Laravel validation
-    // Inertia v3: touch() marks a field as touched (was touched() in laravel-precognition)
     const laravelName = name.replace(/\[(\d+)]/g, '.$1')
     ;(form as any).touch(laravelName)
   }
@@ -116,7 +120,6 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
   }
 
   function register(name: string) {
-    // Get error using both array notation and Laravel dot notation
     const laravelName = name.replace(/\[(\d+)]/g, '.$1')
     const error = (form.errors as any)[name] || (form.errors as any)[laravelName]
 
@@ -136,14 +139,13 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       },
       onBlur: () => {
         if (shouldValidateOnBlur) {
-          validateFormField(name)
+          touchAndValidateFormField(name)
         }
       }
     } as const
   }
 
   function registerEvent(name: string) {
-    // Get error using both array notation and Laravel dot notation
     const laravelName = name.replace(/\[(\d+)]/g, '.$1')
     const error = (form.errors as any)[name] || (form.errors as any)[laravelName]
 
@@ -163,7 +165,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       },
       onBlur: () => {
         if (shouldValidateOnBlur) {
-          validateFormField(name)
+          touchAndValidateFormField(name)
         }
       }
     } as const
@@ -192,7 +194,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       },
       onBlur: () => {
         if (shouldValidateOnBlur) {
-          validateFormField(name)
+          touchAndValidateFormField(name)
         }
       }
     } as const
@@ -318,8 +320,8 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
       },
       onBlur: () => {
         if (shouldValidateOnBlur) {
-          validateFormField(startFieldName)
-          validateFormField(endFieldName)
+          touchAndValidateFormField(startFieldName)
+          touchAndValidateFormField(endFieldName)
         }
       }
     } as const
@@ -331,6 +333,7 @@ export function useForm<T extends Record<string, FormDataConvertible>>(
   return {
     ...form,
     isDirty: form.isDirty,
+    recentlySuccessful: form.recentlySuccessful,
     register,
     registerEvent,
     registerCheckbox,

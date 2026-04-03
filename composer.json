@@ -9,6 +9,7 @@
     "php": "^8.4",
     "inertiajs/inertia-laravel": "^3.0",
     "laravel/framework": "^13.0",
+    "laravel/sanctum": "^4.0",
     "laravel/tinker": "^3.0",
     "rinvex/countries": "^9.0",
     "spatie/enum": "^3.13",

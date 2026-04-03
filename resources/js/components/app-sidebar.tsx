@@ -4,9 +4,13 @@ import {
   BookOpen01Icon,
   GeometricShapes01Icon,
   Github01Icon,
-  Home13Icon
+  Home13Icon,
+  DashboardSquare03Icon,
+  MailAccount02Icon,
+  ServerStack01Icon,
+  Settings02Icon
 } from '@hugeicons/core-free-icons'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { NavFooter } from '@/components/nav-footer'
 import { NavMain } from '@/components/nav-main'
 import {
@@ -18,31 +22,33 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar'
-import type { NavItem } from '@/types'
+import type { NavItem, SharedData } from '@/types'
 import AppLogo from './app-logo'
+import { NavUser } from '@/components/nav-user'
 
 const mainNavItems: NavItem[] = [
   {
-    title: 'Home',
-    href: '/dashboard',
-    icon: Home13Icon
+    title: 'Dashboard',
+    href: route('app.dashboard', {}, false),
+    icon: DashboardSquare03Icon
   },
   {
-    title: 'Getting Started',
-    href: '/dashboard',
-    icon: BookOpen01Icon
+    title: 'Zones',
+    href: route('app.placeholder', {}, false),
+    icon: ServerStack01Icon
   },
   {
-    title: 'Components',
-    href: '/dashboard',
-    icon: GeometricShapes01Icon
+    title: 'Recipients',
+    href: route('app.placeholder', {}, false),
+    icon: MailAccount02Icon
   },
   {
-    title: 'Blocks',
-    href: '/dashboard',
-    icon: BlockGameIcon
+    title: 'Setup',
+    href: route('app.placeholder', {}, false),
+    icon: Settings02Icon
   }
 ]
+
 
 const footerNavItems: NavItem[] = [
   {
@@ -58,8 +64,11 @@ const footerNavItems: NavItem[] = [
 ]
 
 export function AppSidebar() {
+  const page = usePage<SharedData>()
+  const user = page.props.auth.user
+
   return (
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar collapsible="offcanvas" variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -76,9 +85,6 @@ export function AppSidebar() {
         <NavMain items={mainNavItems} />
       </SidebarContent>
 
-      <SidebarFooter>
-        <NavFooter items={footerNavItems} className="mt-auto" />
-      </SidebarFooter>
     </Sidebar>
   )
 }

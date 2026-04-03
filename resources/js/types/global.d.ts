@@ -1,18 +1,8 @@
 import type { VisitOptions } from '@inertiajs/core'
-import type { Config, RouteParamsWithQueryOverload } from 'ziggy-js'
+import type { route as routeFn } from 'ziggy-js'
 
 declare global {
-  const route: (<T extends string = string>(
-    name?: T,
-    params?: RouteParamsWithQueryOverload,
-    absolute?: boolean,
-    config?: Config
-  ) => string) & {
-    current(): string | null
-    current(name: string, params?: RouteParamsWithQueryOverload): boolean
-    check(name: string): boolean
-    has(name: string): boolean
-  }
+  var route: typeof routeFn
 }
 
 declare module 'react-aria-components' {

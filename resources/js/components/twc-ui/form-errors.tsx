@@ -29,11 +29,7 @@ interface Props {
 export const FormErrors: React.FC<Props> = ({ className, errors, showErrors = true, title }) => {
   const { locale } = useLocale()
 
-  const realErrorTitle = title
-    ? title
-    : locale.startsWith('de')
-      ? 'Etwas ist schiefgelaufen'
-      : 'Something went wrong'
+  const realErrorTitle = 'Something went wrong'
 
   const errorMessages = useMemo(() => {
     if (!errors) return []
@@ -44,10 +40,11 @@ export const FormErrors: React.FC<Props> = ({ className, errors, showErrors = tr
     return null
   }
 
+  if (!showErrors) return null
   return (
     <Alert variant="destructive" icon={Sad01Icon} title={realErrorTitle} className={className}>
       {showErrors && (
-        <ul className="motion-opacity-in-0 motion-translate-y-in-100 motion-blur-in-md list-inside list-disc text-sm">
+        <ul className="motion-opacity-in-0 motion-translate-y-in-100 motion-blur-in-md list-inside list-disc text-xs">
           {errorMessages.map((message, index) => (
             <li key={index}>{message}</li>
           ))}
@@ -62,5 +59,5 @@ export function FormFieldError({ className, ...props }: AriaFieldErrorProps) {
 
   if (form?.errorVariant === 'form') return null
 
-  return <FieldError className={cn('font-medium text-destructive text-sm', className)} {...props} />
+  return <FieldError className={cn('font-normal text-destructive text-xs', className)} {...props} />
 }

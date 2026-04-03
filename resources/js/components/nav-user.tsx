@@ -6,8 +6,7 @@
 import {
   LockPasswordIcon,
   Logout02Icon,
-  UserEdit01Icon,
-  UserSwitchIcon
+  AccountSetting01Icon
 } from '@hugeicons/core-free-icons'
 import { router } from '@inertiajs/react'
 import { Pressable } from 'react-aria-components'
@@ -53,10 +52,7 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
         </div>
       </MenuHeader>
 
-      <MenuItem icon={UserEdit01Icon} title="Change profile" ellipsis />
-
-      <MenuItem icon={LockPasswordIcon} title="Change Password" ellipsis separator />
-
+      <MenuItem icon={AccountSetting01Icon} title="Account settings" ellipsis separator href={route('app.settings')}/>
       <MenuItem icon={Logout02Icon} title="Logout" onAction={() => handleLogout()} />
     </DropdownButton>
   )

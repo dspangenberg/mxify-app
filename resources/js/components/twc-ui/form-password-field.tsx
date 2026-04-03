@@ -23,6 +23,7 @@ interface FormPasswordFieldProps {
   onBlur?: () => void
   description?: string
   label?: string
+  labelAddon?: React.ReactNode
   isRequired?: boolean
   autoFocus?: boolean
   showHint?: boolean
@@ -38,6 +39,7 @@ const FormPasswordField = ({
   showHint = false,
   showStrength = false,
   label,
+  labelAddon,
   name,
   value,
   onChange,
@@ -173,7 +175,7 @@ const FormPasswordField = ({
 
   return (
     <>
-      {label && <Label isRequired={isRequired} value={label} />}
+      {label && <Label isRequired={isRequired} value={label} addOn={labelAddon} className="pb-1" />}
       <div className="relative" ref={hintAnchorRef}>
         {showHint &&
           isFocused &&

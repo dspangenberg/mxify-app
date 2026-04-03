@@ -21,6 +21,7 @@ type ExtendedForm<T extends FormSchema> = {
   action: string
   config: FormValidationOptions
   isDirty: boolean
+  recentlySuccessful: boolean
   reset: UseFormReturn<T>['reset']
   register: UseFormReturn<T>['register']
   registerEvent: UseFormReturn<T>['registerEvent']
@@ -62,7 +63,7 @@ interface FormProps<T extends FormSchema> extends BaseFormProps {
   preserveState?: boolean
 }
 
-export const Form = <T extends FormSchema>({
+export const Form = <T extends FormSchema> ({
   form,
   children,
   errorVariant = 'form',
@@ -138,21 +139,21 @@ export const Form = <T extends FormSchema>({
         className={cn('w-full', className)}
         {...props}
       >
-        {form.errors && (
-          <FormErrors
-            className={errorClassName}
-            errors={form.errors}
-            title={errorTitle}
-            showErrors={errorVariant === 'form'}
-          />
-        )}
+          {form.errors && (
+            <FormErrors
+              className={errorClassName}
+              errors={form.errors}
+              title={errorTitle}
+              showErrors={errorVariant === 'form'}
+            />
+          )}
         <fieldset disabled={form.processing}>{children}</fieldset>
       </form>
     </FormContext.Provider>
   )
 }
 
-export const useFormContext = <T extends FormSchema = FormSchema>() => {
+export const useFormContext = <T extends FormSchema = FormSchema> () => {
   const context = useContext(FormContext)
 
   if (context === null) {
@@ -166,7 +167,7 @@ export const useFormContext = <T extends FormSchema = FormSchema>() => {
   }
 }
 
-export function useForm<T extends FormSchema>(
+export function useForm<T extends FormSchema> (
   id: string,
   method: RequestMethod,
   action: string,
@@ -185,6 +186,7 @@ export function useForm<T extends FormSchema>(
     action,
     config,
     isDirty: internalForm.isDirty,
+    recentlySuccessful: internalForm.recentlySuccessful,
     register: internalForm.register,
     registerEvent: internalForm.registerEvent,
     registerCheckbox: internalForm.registerCheckbox,
