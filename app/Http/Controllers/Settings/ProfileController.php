@@ -35,6 +35,7 @@ class ProfileController extends Controller
 
     /**
      * Update the user's profile settings.
+     *
      * @throws ConfigurationException
      * @throws ForbiddenException
      */
@@ -45,14 +46,13 @@ class ProfileController extends Controller
 
         $request->user()->fill($data);
 
-        if ($request->user()->isDirty('email')) {
+        if ($newEmail !== $request->user()->email) {
+            $request->user()->email = $newEmail;
             $request->user()->email_verified_at = null;
+            $request->user()->newEmail($newEmail);
         }
 
-        if ($newEmail !==  $request->user()->email) {
-            $request->user()->newEmail($newEmail);
-            $request->user()->email_verified_at = null;
-        }
+        $request->user()->save();
 
         if ($request->hasFile('avatar')) {
             $request->user()->detachMediaTags('avatar');
@@ -65,7 +65,7 @@ class ProfileController extends Controller
             } catch (ConfigurationException|FileExistsException|FileNotFoundException|FileNotSupportedException|FileSizeException|ForbiddenException|InvalidHashException) {
 
             }
-        }  else {
+        } else {
             if ($request->input('remove_avatar', false)) {
                 if ($request->user()->firstMedia('avatar')) {
                     $request->user()->detachMediaTags('avatar');
@@ -73,20 +73,20 @@ class ProfileController extends Controller
             }
         }
 
-
-
         return to_route('app.profile.edit');
     }
 
     public function resendVerificationEmail(Request $request): RedirectResponse
     {
         $request->user()->resendPendingEmailVerificationMail();
+
         return Redirect::back();
     }
 
     public function clearPendingMailAddress(Request $request)
     {
         $request->user()->clearPendingEmail();
+
         return redirect()->back();
     }
 

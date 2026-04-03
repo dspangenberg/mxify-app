@@ -1,4 +1,11 @@
 declare namespace App.Data {
+export type ApiTokenData = {
+id: number | null;
+name: string;
+expires_at: string | null;
+last_used_at: string | null;
+abilities: Array<string>;
+};
 export type LoginData = {
 email: string;
 password: string;

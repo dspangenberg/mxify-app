@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Settings\ApiTokenController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
@@ -20,7 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('app.password.edit');
     Route::put('settings/password', [PasswordController::class, 'update'])->name('app.password.update')->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::get('settings/api-tokens', [PasswordController::class, 'edit'])->name('app.api-tokens.edit');
+    Route::get('settings/api-tokens', [ApiTokenController::class, 'index'])->name('app.api-tokens.index');
+    Route::get('settings/api-tokens/create', [ApiTokenController::class, 'create'])->name('app.api-tokens.create');
+    Route::post('settings/api-tokens', [ApiTokenController::class, 'store'])->name('app.api-tokens.store')->middleware([HandlePrecognitiveRequests::class]);
 
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/appearance');

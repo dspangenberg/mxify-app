@@ -179,15 +179,7 @@ export function useForm<T extends FormSchema>(
   const resolvedClassName = typeof configOrClassName === 'string' ? configOrClassName : className
   const internalForm = internalUseForm(method, action, data, config)
 
-  const submit = (options?: any) => {
-    internalForm.submit({
-      ...options,
-      onSuccess: () => {
-        options?.onSuccess?.()
-        config.onSuccess?.()
-      }
-    })
-  }
+  const onSuccessHandler = config.onSuccess
 
   return {
     id,
@@ -206,7 +198,14 @@ export function useForm<T extends FormSchema>(
     data: internalForm.data,
     errors: internalForm.errors,
     processing: internalForm.processing,
-    submit,
+    submit: (options?: any) =>
+      internalForm.submit({
+        ...options,
+        onSuccess: () => {
+          options?.onSuccess?.()
+          onSuccessHandler?.()
+        }
+      }),
     setData: internalForm.setData,
     reset: internalForm.reset,
     setError: internalForm.setError,
@@ -215,8 +214,7 @@ export function useForm<T extends FormSchema>(
     transform: internalForm.transform,
     form: {
       id,
-      ...internalForm,
-      submit
+      ...internalForm
     }
   }
 }

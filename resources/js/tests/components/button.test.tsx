@@ -1,4 +1,4 @@
-import { Rocket02Icon } from '@hugeicons/react'
+import { Rocket02Icon } from '@hugeicons/core-free-icons'
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
@@ -11,8 +11,7 @@ vi.mock('@hugeicons/react', () => ({
       data-stroke-width={strokeWidth?.toString() || '1.5'}
       {...props}
     />
-  )),
-  Rocket02Icon: [['path', { d: 'M10 10 L20 20' }]] as any
+  ))
 }))
 
 const renderButton = (props: React.ComponentProps<typeof Button>) => {

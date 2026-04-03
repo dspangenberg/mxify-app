@@ -56,8 +56,9 @@ vi.mock('react-aria-components', () => ({
       React.Children.map(children, (child: any) => {
         if (React.isValidElement(child) && typeof child.type === 'function') {
           // Pass TextField props to Input children
-          return React.cloneElement(child as any, {
-            ...child.props,
+          const childAny = child as any
+          return React.cloneElement(childAny, {
+            ...childAny.props,
             _textFieldProps: { isInvalid, isDisabled, value, onChange }
           })
         }

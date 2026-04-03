@@ -9,5 +9,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     []
   )
 
-  return <RouterProvider navigate={navigate}>{children}</RouterProvider>
+  return (
+    <RouterProvider navigate={navigate as (path: string, routerOptions?: object) => void}>
+      {children}
+    </RouterProvider>
+  )
 }

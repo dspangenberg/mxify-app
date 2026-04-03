@@ -8,7 +8,8 @@ import '@fontsource/ia-writer-quattro'
 import { Providers } from '@/providers'
 
 if (routeFn) {
-  globalThis.route = routeFn
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(globalThis as any).route = routeFn
 }
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'

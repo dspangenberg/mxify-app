@@ -15,8 +15,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
         <Tab id={route('app.password.edit', {}, false)} href={route('app.password.edit')}>
           Password
         </Tab>
-        <Tab id={route('app.api-tokens.edit', {}, false)} href={route('app.api-tokens.edit')}>
-          API-tokens
+        <Tab id={route('app.api-tokens.index', {}, false)} href={route('app.api-tokens.index')}>
+          Personal access tokens
         </Tab>
       </TabList>
     </Tabs>
