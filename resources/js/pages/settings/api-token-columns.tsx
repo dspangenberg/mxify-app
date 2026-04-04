@@ -4,22 +4,25 @@
  */
 
 import { Delete03Icon, MoreVerticalCircle01Icon } from '@hugeicons/core-free-icons'
-import { router } from '@inertiajs/core'
+import { router } from '@inertiajs/react'
 import type { ColumnDef, Row } from '@tanstack/react-table'
 import { AlertDialog } from '@/components/twc-ui/alert-dialog'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
 import { MenuItem } from '@/components/twc-ui/menu'
 import { Checkbox } from '@/components/ui/checkbox'
 
-const handleDeleteProject = async (row: App.Data.ApiTokenData) => {
+const hanleDelete = async (row: App.Data.ApiTokenData) => {
   if (row.id == null) return
   const promise = await AlertDialog.call({
-    title: 'Projekt in den Papierkorb legen',
-    message: `Möchtest Du das Projekt ${row.name} in den Papierkorb legen?`,
-    buttonTitle: 'Projekt löschen'
+    title: 'Delete personal access token',
+    message: `Do you want to delete ${row.name}?`,
+    buttonTitle: 'Delete'
   })
   if (promise) {
-    router.delete(route('app.project.delete', { project: row.id }))
+    const deleteUrl = route('app.api-tokens.delete', { token: row.id })
+    if (deleteUrl) {
+      router.delete(deleteUrl)
+    }
   }
 }
 
@@ -29,9 +32,9 @@ const RowActions = ({ row }: { row: Row<App.Data.ApiTokenData> }) => {
       <DropdownButton variant="ghost" size="icon-sm" icon={MoreVerticalCircle01Icon}>
         <MenuItem
           icon={Delete03Icon}
-          title="Löschen"
+          title="Delete"
           variant="destructive"
-          onAction={() => handleDeleteProject(row.original)}
+          onAction={() => hanleDelete(row.original)}
         />
       </DropdownButton>
     </div>
@@ -70,9 +73,7 @@ export const columns: ColumnDef<App.Data.ApiTokenData>[] = [
     cell: ({ row }) => (
       <div>
         {row.original.name}
-        <div className="text-xs text-muted-foreground">
-          {row.original.abilities.join(', ')}
-        </div>
+        <div className="text-muted-foreground text-xs">{row.original.abilities.join(', ')}</div>
       </div>
     )
   },

@@ -13,7 +13,7 @@ import type { BreadcrumbItem as BreadcrumbItemType } from '@/types'
 export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: BreadcrumbItemType[] }) {
   return (
     <>
-      {breadcrumbs.length > 0 && (
+      {breadcrumbs.length > 1 && (
         <Breadcrumb>
           <BreadcrumbList>
             {breadcrumbs.map((item, index) => {

@@ -13,7 +13,7 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('app.profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('app.profile.update')->middleware([HandlePrecognitiveRequests::class]);
     Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('app.profile.destroy');
-    Route::post('settings/profile/verification-notification', [ProfileController::class, 'resendVerificationEmail'])->name('verification.send');
+    Route::post('settings/profile/verification-notification', [ProfileController::class, 'resendVerificationEmail'])->name('app.profile.resend-verification-email');
 
     Route::post('settings/profile/clear-pending-mail-address',
         [ProfileController::class, 'clearPendingMailAddress'])->name('app.profile.clear-pending-mail-address');
@@ -24,8 +24,5 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/api-tokens', [ApiTokenController::class, 'index'])->name('app.api-tokens.index');
     Route::get('settings/api-tokens/create', [ApiTokenController::class, 'create'])->name('app.api-tokens.create');
     Route::post('settings/api-tokens', [ApiTokenController::class, 'store'])->name('app.api-tokens.store')->middleware([HandlePrecognitiveRequests::class]);
-
-    Route::get('settings/appearance', function () {
-        return Inertia::render('settings/appearance');
-    })->name('app.appearance');
+    Route::delete('settings/api-tokens/{token}', [ApiTokenController::class, 'destroy'])->name('app.api-tokens.delete');
 });

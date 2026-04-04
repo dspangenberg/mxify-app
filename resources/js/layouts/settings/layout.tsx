@@ -1,7 +1,10 @@
-import { usePage } from '@inertiajs/react'
-import type { PropsWithChildren } from 'react'
+import { router, usePage } from '@inertiajs/react'
+import { useMemo, type PropsWithChildren } from 'react'
 import { AppPage } from '@/components/app-page'
 import { Tab, TabList, Tabs } from '@/components/twc-ui/tabs'
+import { Add01Icon} from '@hugeicons/core-free-icons'
+import { Toolbar } from '@/components/twc-ui/toolbar'
+import { Button } from '@/components/twc-ui/button'
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
   const { url } = usePage()
@@ -21,12 +24,31 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
       </TabList>
     </Tabs>
   )
+  
+  const toolbar = useMemo(
+    () => (
+      <Toolbar>
+        {url === '/settings/api-tokens' && (
+          <Button
+            variant="toolbar-default"
+            icon={Add01Icon}
+            title="Create new token"
+            onClick={() =>
+              router.visit(route('app.api-tokens.create'))
+            }
+          />
+        )}
+      </Toolbar>
+    ),
+    [url]
+  )
 
   return (
     <AppPage
       title="Account settings"
       description="Manage your profile and account settings."
       tabs={tabs}
+      toolbar={toolbar}
     >
       {children}
     </AppPage>

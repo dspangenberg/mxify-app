@@ -77,7 +77,7 @@ export default function ApiTokenCreate ({
             form={form.id}
             type="submit"
             variant="default"
-            title="Update Profile"
+            title="Create token"
             isLoading={form.processing}
           />
         </>
@@ -125,8 +125,8 @@ ApiTokenCreate.layout = {
       href: route('app.settings')
     },
     {
-      title: 'Profile',
-      href: route('app.profile.edit')
+      title: 'Personal access tokens',
+      href: route('app.api-tokens.index')
     }
   ]
 }
