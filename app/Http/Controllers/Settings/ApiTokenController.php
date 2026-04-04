@@ -30,6 +30,12 @@ class ApiTokenController extends Controller
         ]);
     }
 
+    public function destroy(Request $request, string $tokenId): RedirectResponse
+    {
+        $request->user()->tokens()->where('id', $tokenId)->delete();
+        return redirect()->route('app.api-tokens.index')->with('flash.api_token', 'Token deleted successfully');
+    }
+
     public function index(Request $request): Response
     {
         $tokens = $request->user()->tokens()->orderByDesc('created_at')->paginate(10);

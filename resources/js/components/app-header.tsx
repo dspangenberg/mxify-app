@@ -32,7 +32,7 @@ interface AppHeaderProps {
   breadcrumbs?: BreadcrumbItem[]
 }
 
-export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
+export function AppHeader ({ breadcrumbs = [] }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const user = page.props.auth.user
 
@@ -122,13 +122,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             </Sheet>
           </div>
 
-          <Link href={route('app.dashboard')} prefetch className='flex w-36 items-center'>
+          <Link href={route('app.dashboard')} prefetch className="flex w-36 items-center">
             <AppLogo />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="ml-6 hidden h-full w-full items-center space-x-6 lg:flex">
-            <NavigationMenu className='mx-auto flex h-full flex-1 items-stretch'>
+            <NavigationMenu className="mx-auto flex h-full flex-1 items-stretch">
               <NavigationMenuList className="flex h-full items-stretch justify-center space-x-2">
                 {mainNavItems.map((item, index) => (
                   <NavigationMenuItem key={index} className="relative flex h-full items-center">
@@ -188,11 +188,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
         </div>
       </div>
 
+      {breadcrumbs?.length > 1 && (
         <div className="flex w-full border-sidebar-border/80 border-b">
           <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-6xl">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
           </div>
         </div>
+      )}
 
     </>
   )

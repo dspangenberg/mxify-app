@@ -43,7 +43,7 @@ export default function Profile() {
   }
 
   const handleResendVerificationEmail = () => {
-    router.post(route('verification.send'))
+    router.post(route('app.profile.resend-verification-email'))
   }
 
   const handleClearPendingMailAddress = async () => {

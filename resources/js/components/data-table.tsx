@@ -129,9 +129,9 @@ function DataTableInner<TData, TValue>(
       {pagination && (
         <div className="flex items-center justify-between gap-2 px-2 py-2">
           <p className="text-muted-foreground text-sm">
-            Zeige {(pagination.current_page - 1) * pagination.per_page + 1} bis{' '}
-            {Math.min(pagination.current_page * pagination.per_page, pagination.total)} von{' '}
-            {pagination.total} Einträgen
+            Showing {(pagination.current_page - 1) * pagination.per_page + 1} to {' '}
+            {Math.min(pagination.current_page * pagination.per_page, pagination.total)} of {' '}
+            {pagination.total} entries
           </p>
           <div className="flex gap-1">
             <button
@@ -140,7 +140,7 @@ function DataTableInner<TData, TValue>(
               disabled={pagination.current_page <= 1}
               className="rounded border px-3 py-1 text-sm disabled:opacity-50"
             >
-              Zurück
+              Previous
             </button>
             <button
               type="button"
@@ -148,7 +148,7 @@ function DataTableInner<TData, TValue>(
               disabled={pagination.current_page >= pagination.last_page}
               className="rounded border px-3 py-1 text-sm disabled:opacity-50"
             >
-              Weiter
+              Next
             </button>
           </div>
         </div>
