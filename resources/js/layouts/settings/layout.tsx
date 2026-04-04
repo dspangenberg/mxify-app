@@ -24,12 +24,12 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
       </TabList>
     </Tabs>
   )
-  
+
   const toolbar = useMemo(
     () => (
       <Toolbar>
-        {url === '/settings/api-tokens' && (
-          <Button
+        {url.startsWith(route('app.api-tokens.index', {}, false)) && (
+        <Button
             variant="toolbar-default"
             icon={Add01Icon}
             title="Create new token"
