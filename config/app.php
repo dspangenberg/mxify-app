@@ -118,6 +118,8 @@ return [
     |
     */
 
+    'registration_enabled' => env('APP_REGISTRATION_ENABLED', false),
+
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
