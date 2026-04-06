@@ -24,6 +24,8 @@ class AppData extends Data
         public readonly string $mx_ip4,
         public readonly ?string $mx_ip6,
         public readonly string $website,
+        public readonly ?string $address_prefix,
+        public readonly ?string $webhook_route,
 
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: 'Y-m-d H:i:s')]
         public readonly ?DateTime $created_at = null,

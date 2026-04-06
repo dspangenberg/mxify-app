@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\App;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,12 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('app.dashboard', ['app' => $user->current_app_id], absolute: false));
         }
 
-        return redirect()->intended(route('apps.select', absolute: false));
+        $app = $request->user()?->is_admin ? App::query()->orderBy('name')->first() : $request->user()?->apps()->orderBy('name')->first();
+        if ($app) {
+            return redirect()->intended(route('app.dashboard', ['app' => $app->id], absolute: false));
+        }
+
+        abort(404);
     }
 
     /**

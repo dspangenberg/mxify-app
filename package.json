@@ -32,6 +32,7 @@
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss-react-aria-components": "^2.0.1",
     "tsx": "^4.21.0",
+    "vite-plugin-run": "^0.6.1",
     "vitest": "^4.1.2"
   },
   "dependencies": {

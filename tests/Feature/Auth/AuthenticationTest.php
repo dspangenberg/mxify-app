@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\App;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -13,6 +14,8 @@ test('login screen can be rendered', function () {
 
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
+    $app = App::factory()->create();
+    $user->apps()->attach($app);
 
     $response = $this->post(
         'login', [
@@ -21,7 +24,7 @@ test('users can authenticate using the login screen', function () {
         ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('apps.select', absolute: false));
+    $response->assertRedirect(route('app.dashboard', ['app' => $app->id], absolute: false));
 });
 
 test('users can not authenticate with invalid password', function () {

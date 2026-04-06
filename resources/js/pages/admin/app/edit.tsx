@@ -6,15 +6,20 @@ import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormTextField } from '@/components/twc-ui/form-text-field'
 import { appDashboardRoute } from '@/lib/utils'
 
-export default function AppEdit({ app }: { app: App.Data.AppData }) {
+export default function AppEdit({ application }: { application: App.Data.AppData }) {
   const form = useForm<App.Data.AppData>(
     'app-edit-form',
-    app.id ? 'put' : 'post',
-    app.id ? route('admin.apps.update', { app: app.id }) : route('admin.apps.store'),
-    app
+    application.id ? 'put' : 'post',
+    application.id
+      ? route('admin.apps.update', { app: application.id })
+      : route('admin.apps.store'),
+    application
   )
+
+  const title = app.id ? 'Edit Application' : 'Create Application'
+
   return (
-    <AppPage title="Create App" description="Create a new app">
+    <AppPage title={title}>
       <FormCard
         className="mx-auto flex w-full max-w-4xl flex-1"
         footer={
@@ -72,6 +77,22 @@ export default function AppEdit({ app }: { app: App.Data.AppData }) {
                 {...form.register('mx_ip6')}
               />
             </div>
+            <div className="col-span-12">
+              <FormTextField
+                label="Email address prefix"
+                placeholder="dropbox"
+                description="This will be used to prefix email addresses for receipients (e.g. dropbox-3DlmNB@tenant.example.com)."
+                {...form.register('address_prefix')}
+              />
+            </div>
+            <div className="col-span-12">
+              <FormTextField
+                label="Webhook route"
+                placeholder="postman"
+                description="This route will be a added to zone webhook URLs (e.g. https://example.com/webhook/postman)."
+                {...form.register('webhook_route')}
+              />
+            </div>
           </FormGrid>
         </Form>
       </FormCard>
@@ -79,11 +100,19 @@ export default function AppEdit({ app }: { app: App.Data.AppData }) {
   )
 }
 
-AppEdit.layout = {
-  breadcrumbs: [
-    {
-      title: 'Administration',
-      href: null
-    }
-  ]
+AppEdit.layout = page => {
+  // page.props enthält alle Props der Seite
+
+  return {
+    breadcrumbs: [
+      {
+        title: 'Applications',
+        href: route('admin.apps.index')
+      },
+      {
+        title: page.application.id ? 'Edit' : 'Create',
+        href: null
+      }
+    ]
+  }
 }

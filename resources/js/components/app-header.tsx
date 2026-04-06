@@ -3,7 +3,7 @@ import {
   InboxIcon,
   MailAccount02Icon,
   ServerStack01Icon,
-  Settings02Icon
+  ShieldKeyIcon
 } from '@hugeicons/core-free-icons'
 import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
@@ -22,7 +22,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { appDashboardRoute, appRoute, cn } from '@/lib/utils'
 import type { BreadcrumbItem, NavItem, SharedData } from '@/types'
-import AppLogo from './app-logo'
 import AppLogoIcon from './app-logo-icon'
 import { NavUser } from './nav-user'
 
@@ -39,8 +38,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   const user = usePage<SharedData>().props.auth.user
   const appId = usePage<SharedData>().props.currentAppId
 
-  console.log(breadcrumbs.length)
-
   const mainNavItems: NavItem[] = [
     {
       title: 'Dashboard',
@@ -54,7 +51,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
     },
     {
       title: 'Recipients',
-      href: appRoute('app.placeholder'),
+      href: appRoute('app.recipients.index'),
       icon: MailAccount02Icon
     },
     {
@@ -63,9 +60,9 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
       icon: InboxIcon
     },
     {
-      title: 'Settings',
-      href: appRoute('app.placeholder'),
-      icon: Settings02Icon
+      title: 'API-tokens',
+      href: appRoute('app.api-tokens.index'),
+      icon: ShieldKeyIcon
     }
   ]
   return (

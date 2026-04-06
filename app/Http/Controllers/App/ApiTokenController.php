@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\App;
 
 use App\Data\ApiTokenData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\ApiTokenStoreRequest;
+use App\Http\Requests\App\ApiTokenRequest;
+use App\Models\App;
 use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,22 +26,22 @@ class ApiTokenController extends Controller
             'expires_at' => null,
         ];
 
-        return Inertia::render('settings/api-token-create', [
+        return Inertia::render('app/api-token/api-token-create', [
             'token' => ApiTokenData::from($token),
         ]);
     }
 
-    public function destroy(Request $request, string $tokenId): RedirectResponse
+    public function destroy(App $app, string $tokenId): RedirectResponse
     {
-        $request->user()->tokens()->where('id', $tokenId)->delete();
-        return redirect()->route('app.api-tokens.index')->with('flash.api_token', 'Token deleted successfully');
+        $app->tokens()->where('id', $tokenId)->delete();
+        return redirect()->route('app.api-tokens.index', ['app' => $app->id])->with('flash.api_token', 'Token deleted successfully');
     }
 
-    public function index(Request $request): Response
+    public function index(App $app): Response
     {
-        $tokens = $request->user()->tokens()->orderByDesc('created_at')->paginate(10);
+        $tokens = $app->tokens()->orderByDesc('created_at')->paginate(10);
 
-        return Inertia::render('settings/api-token-index', [
+        return Inertia::render('app/api-token/api-token-index', [
             'tokens' => $tokens->through(fn ($token) => ApiTokenData::from([
                 'id' => $token->id,
                 'name' => $token->name,
@@ -53,7 +54,7 @@ class ApiTokenController extends Controller
         ]);
     }
 
-    public function store(ApiTokenStoreRequest $request): RedirectResponse
+    public function store(ApiTokenRequest $request, App $app): RedirectResponse
     {
         $expiresAt = null;
         if ($request->filled('expires_at')) {
@@ -61,10 +62,10 @@ class ApiTokenController extends Controller
             $expiresAt->setTime(23, 59, 59);
         }
 
-        $token = $request->user()->createToken($request->validated('name'), $request->validated('abilities'), $expiresAt);
+        $token = $app->createToken($request->validated('name'), $request->validated('abilities'), $expiresAt);
 
         Session::flash('api_token', $token->plainTextToken);
 
-        return redirect()->route('app.api-tokens.index');
+        return redirect()->route('app.api-tokens.index', ['app' => $app]);
     }
 }

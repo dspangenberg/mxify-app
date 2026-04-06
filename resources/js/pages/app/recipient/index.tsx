@@ -7,47 +7,46 @@ import { Toolbar } from '@/components/twc-ui/toolbar'
 import { appRoute } from '@/lib/utils'
 import type { SharedData } from '@/types'
 import { columns } from './index-columns'
-export default function ZoneIndex({
-  zones
+export default function RecipientIndex({
+  recipients
 }: {
-  zones: App.Data.Paginated.PaginationMeta<App.Data.ZoneData[]>
+  recipients: App.Data.Paginated.PaginationMeta<App.Data.RecipientData[]>
 }) {
-  const appId = usePage<SharedData>().props.currentAppId
   return (
     <AppPage
-      title="Zones"
+      title="Recipients"
       toolbar={
         <Toolbar>
           <Button
             variant="toolbar-default"
             icon={Add01Icon}
-            title="Create new zone"
-            onClick={() => router.visit(appRoute('app.zones.create'))}
+            title="Create new recipient"
+            onClick={() => router.visit(appRoute('app.recipients.create'))}
           />
         </Toolbar>
       }
     >
       <DataTable
         columns={columns}
-        data={zones.data}
+        data={recipients.data}
         pagination={{
-          current_page: zones.current_page,
-          last_page: zones.last_page,
-          per_page: zones.per_page,
-          total: zones.total
+          current_page: recipients.current_page,
+          last_page: recipients.last_page,
+          per_page: recipients.per_page,
+          total: recipients.total
         }}
-        onPageChange={page => router.get(appRoute('app.zones.index', { page }))}
+        onPageChange={page => router.get(appRoute('app.recipients.index', { page }))}
         itemName="Zones"
       />
     </AppPage>
   )
 }
 
-ZoneIndex.layout = {
+RecipientIndex.layout = {
   breadcrumbs: [
     {
-      title: 'Zones',
-      appRoute: 'app.zones.index'
+      title: 'Recipients',
+      appRoute: 'app.recipients.index'
     }
   ]
 }

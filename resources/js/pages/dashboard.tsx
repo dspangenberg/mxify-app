@@ -26,12 +26,3 @@ export default function Dashboard() {
     </AppPage>
   )
 }
-
-Dashboard.layout = {
-  breadcrumbs: [
-    {
-      title: 'Dashboard',
-      href: appDashboardRoute()
-    }
-  ]
-}

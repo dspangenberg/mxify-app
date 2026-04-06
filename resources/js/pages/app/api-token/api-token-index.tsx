@@ -1,11 +1,13 @@
-import { Copy01Icon } from '@hugeicons/core-free-icons'
+import { Add01Icon, Copy01Icon } from '@hugeicons/core-free-icons'
 import { router, usePage } from '@inertiajs/react'
+import { AppPage } from '@/components/app-page'
 import { DataTable } from '@/components/data-table'
 import { Alert } from '@/components/twc-ui/alert'
 import { Button } from '@/components/twc-ui/button'
-import { appDashboardRoute, appRoute } from '@/lib/utils'
+import { Toolbar } from '@/components/twc-ui/toolbar'
+import { appRoute } from '@/lib/utils'
 import { columns } from './api-token-columns'
-export default function ApiTokenIndex({
+export default function ApiTokenEdit({
   tokens
 }: {
   tokens: App.Data.Paginated.PaginationMeta<App.Data.ApiTokenData[]>
@@ -19,16 +21,29 @@ export default function ApiTokenIndex({
   }
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <AppPage
+      title="API tokens"
+      description="Manage your API access tokens"
+      toolbar={
+        <Toolbar>
+          <Button
+            variant="toolbar-default"
+            icon={Add01Icon}
+            title="Create new token"
+            onClick={() => router.visit(appRoute('app.api-tokens.create'))}
+          />
+        </Toolbar>
+      }
+    >
       <DataTable
         columns={columns}
         data={tokens.data}
         filterBar={
-          <div className="px-1 pr-2.5">
+          <div className="px-0 pr-2.5">
             {flash.api_token && (
               <Alert
                 className="mb-4"
-                title="Copy your personal access token; it will only be shown once."
+                title="Copy the api token; it will only be shown once."
                 variant="info"
                 actions={
                   <Button
@@ -54,24 +69,16 @@ export default function ApiTokenIndex({
           total: tokens.total
         }}
         onPageChange={page => router.get(route('app.api-tokens.index', { page }))}
-        itemName="API-token"
+        itemName="API-tokens"
       />
-    </div>
+    </AppPage>
   )
 }
 
-ApiTokenIndex.layout = {
+ApiTokenEdit.layout = {
   breadcrumbs: [
     {
-      title: 'Dashboard',
-      href: appDashboardRoute()
-    },
-    {
-      title: 'Account settings',
-      href: appRoute('app.settings')
-    },
-    {
-      title: 'Personal access tokens',
+      title: 'API tokens',
       href: appRoute('app.api-tokens.index')
     }
   ]

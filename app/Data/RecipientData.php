@@ -14,19 +14,15 @@ use Spatie\LaravelData\Transformers\DateTimeInterfaceTransformer;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-class ZoneData extends Data
+class RecipientData extends Data
 {
     public function __construct(
         public readonly ?int $id,
-        public readonly string $name,
-        public readonly string $webhook_url,
-        public readonly bool $is_dns_created,
 
         public readonly ?string $description,
-        public readonly ?string $real_webhook_url,
-
-        #[WithTransformer(DateTimeInterfaceTransformer::class, format: 'Y-m-d H:i:s')]
-        public readonly ?DateTime $dns_checked_at,
+        public readonly ?string $email_address,
+        public readonly ?int $zone_id,
+        public readonly ZoneData $zone,
 
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: 'Y-m-d H:i:s')]
         public readonly ?DateTime $created_at = null,

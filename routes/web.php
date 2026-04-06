@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AppController;
+use App\Http\Controllers\App\ApiTokenController;
 use App\Http\Controllers\App\AppSelectController;
+use App\Http\Controllers\App\RecipientController;
 use App\Http\Controllers\App\ZoneController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,14 @@ Route::middleware(['auth', 'verified', 'app.access'])->prefix('app/{app}')->grou
     Route::put('zones/{zone}', [ZoneController::class, 'update'])->name('app.zones.update')->middleware([HandlePrecognitiveRequests::class]);
     Route::post('zones', [ZoneController::class, 'store'])->name('app.zones.store')->middleware([HandlePrecognitiveRequests::class]);
     Route::delete('zones/{zone}', [ZoneController::class, 'destroy'])->name('app.zones.delete');
+
+    Route::get('api-tokens', [ApiTokenController::class, 'index'])->name('app.api-tokens.index');
+    Route::get('api-tokens/create', [ApiTokenController::class, 'create'])->name('app.api-tokens.create');
+    Route::post('api-tokens', [ApiTokenController::class, 'store'])->name('app.api-tokens.store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::delete('api-tokens/{token}', [ApiTokenController::class, 'destroy'])->name('app.api-tokens.delete');
+
+    Route::get('recipients', [RecipientController::class, 'index'])->name('app.recipients.index');
+
 });
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {
@@ -38,6 +48,12 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::put('apps/{app}', [AppController::class, 'update'])->name('admin.apps.update')->middleware([HandlePrecognitiveRequests::class]);
     Route::post('apps', [AppController::class, 'store'])->name('admin.apps.store')->middleware([HandlePrecognitiveRequests::class]);
     // Route::delete('apps/{zone}', [AppController::class, 'destroy'])->name('app.apps.delete');
+
+    Route::get('users', function () {
+        return Inertia::render('placeholder');
+    })->name('admin.users.index');
+
+
 });
 
 Route::get('/', function () {

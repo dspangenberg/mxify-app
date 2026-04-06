@@ -9,15 +9,14 @@ import type { ColumnDef, Row } from '@tanstack/react-table'
 import { AlertDialog } from '@/components/twc-ui/alert-dialog'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
 import { MenuItem } from '@/components/twc-ui/menu'
-import { StatusIcon } from '@/components/twc-ui/status-icon'
 import { Checkbox } from '@/components/ui/checkbox'
 import { appRoute } from '@/lib/utils'
 
-const handleDelete = async (row: App.Data.ZoneData) => {
+const handleDelete = async (row: App.Data.RecipientData) => {
   if (row.id == null) return
   const promise = await AlertDialog.call({
     title: 'Delete zone',
-    message: `Do you want to delete ${row.name}?`,
+    message: `Do you want to delete ${row.email_address}?`,
     buttonTitle: 'Delete'
   })
   if (promise) {
@@ -25,12 +24,7 @@ const handleDelete = async (row: App.Data.ZoneData) => {
   }
 }
 
-const handleDnsCheck = (row: App.Data.ZoneData) => {
-  if (row.id == null) return
-  router.put(appRoute('app.zones.check-dns', { zone: row.id }))
-}
-
-const RowActions = ({ row }: { row: Row<App.Data.ZoneData> }) => {
+const RowActions = ({ row }: { row: Row<App.Data.RecipientData> }) => {
   return (
     <div className="mx-auto">
       <DropdownButton variant="ghost" size="icon-sm" icon={MoreVerticalCircle01Icon}>
@@ -41,8 +35,6 @@ const RowActions = ({ row }: { row: Row<App.Data.ZoneData> }) => {
           separator
           href={appRoute('app.zones.edit', { zone: row.original.id })}
         />
-        <MenuItem title="Check DNS record again" onClick={() => handleDnsCheck(row.original)} />
-        <MenuItem title="Create record with Hetzner API" separator />
         <MenuItem
           icon={Delete03Icon}
           title="Delete"
@@ -54,7 +46,7 @@ const RowActions = ({ row }: { row: Row<App.Data.ZoneData> }) => {
   )
 }
 
-export const columns: ColumnDef<App.Data.ZoneData>[] = [
+export const columns: ColumnDef<App.Data.RecipientData>[] = [
   {
     id: 'select',
     size: 20,
@@ -80,34 +72,22 @@ export const columns: ColumnDef<App.Data.ZoneData>[] = [
     )
   },
   {
-    accessorKey: 'is_dns_created',
-    header: '',
-    size: 10,
-    cell: ({ row }) => {
-      return row.original.is_dns_created ? (
-        <StatusIcon variant="success" tooltip="DNS record found" />
-      ) : (
-        <StatusIcon variant="warning" tooltip="DNS record not found" />
-      )
-    }
+    accessorKey: 'email_address',
+    header: 'Email address',
+    size: 200,
+    cell: ({ row }) => <div>{row.original.email_address}</div>
   },
   {
-    accessorKey: 'name',
-    header: 'Name',
+    accessorKey: 'description',
+    header: 'Description',
     size: 100,
-    cell: ({ row }) => <div>{row.original.name}</div>
+    cell: ({ row }) => <div>{row.original.description}</div>
   },
   {
-    accessorKey: 'webhook_url',
-    header: 'Webhook url',
+    accessorKey: 'zone_id',
+    header: 'Zone',
     size: 150,
-    cell: ({ row }) => <div className="truncate">{row.original.real_webhook_url}</div>
-  },
-  {
-    accessorKey: 'dns_checked_at',
-    header: 'DNS checked',
-    size: 80,
-    cell: ({ row }) => <span>{row.original.created_at}</span>
+    cell: ({ row }) => <div className="truncate">{row.original.zone.name}</div>
   },
   {
     id: 'actions',

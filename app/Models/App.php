@@ -15,7 +15,7 @@ class App extends Model implements MediableInterface
 {
     use HasApiTokens, HasFactory, Mediable;
 
-    protected $fillable = ['name', 'description', 'mx_name', 'mx_ip4', 'mx_ip6', 'website'];
+    protected $fillable = ['name', 'description', 'mx_name', 'mx_ip4', 'mx_ip6', 'website', 'webhook_route', 'address_prefix'];
 
     protected $attributes = [
         'name' => '',
@@ -24,6 +24,8 @@ class App extends Model implements MediableInterface
         'mx_ip4' => '',
         'mx_ip6' => '',
         'website' => '',
+        'webhook_route' => '',
+        'address_prefix' => '',
     ];
 
     protected $appends = [

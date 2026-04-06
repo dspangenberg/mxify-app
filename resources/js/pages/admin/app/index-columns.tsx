@@ -3,49 +3,33 @@
  * Copyright (c) 2024-2025 by Danny Spangenberg (twiceware solutions e. K.)
  */
 
-import { Delete03Icon, MoreVerticalCircle01Icon } from '@hugeicons/core-free-icons'
+import { Delete03Icon, Edit04Icon, MoreVerticalCircle01Icon } from '@hugeicons/core-free-icons'
 import { router } from '@inertiajs/react'
 import type { ColumnDef, Row } from '@tanstack/react-table'
 import { AlertDialog } from '@/components/twc-ui/alert-dialog'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
 import { MenuItem } from '@/components/twc-ui/menu'
+import { StatusIcon } from '@/components/twc-ui/status-icon'
 import { Checkbox } from '@/components/ui/checkbox'
+import { appRoute } from '@/lib/utils'
 
-const hanleDelete = async (row: App.Data.ApiTokenData) => {
-  if (row.id == null) return
-  const promise = await AlertDialog.call({
-    title: 'Delete personal access token',
-    message: `Do you want to delete ${row.name}?`,
-    buttonTitle: 'Delete'
-  })
-  if (promise) {
-    const deleteUrl = route('app.api-tokens.delete', { token: row.id })
-    if (deleteUrl) {
-      router.delete(deleteUrl, {
-        onError: errors => {
-          console.error('Failed to delete token:', errors)
-        }
-      })
-    }
-  }
-}
-
-const RowActions = ({ row }: { row: Row<App.Data.ApiTokenData> }) => {
+const RowActions = ({ row }: { row: Row<App.Data.AppData> }) => {
   return (
     <div className="mx-auto">
       <DropdownButton variant="ghost" size="icon-sm" icon={MoreVerticalCircle01Icon}>
         <MenuItem
-          icon={Delete03Icon}
-          title="Delete"
-          variant="destructive"
-          onAction={() => hanleDelete(row.original)}
+          icon={Edit04Icon}
+          title="Edit"
+          ellipsis
+          separator
+          href={route('admin.apps.edit', { app: row.original.id })}
         />
       </DropdownButton>
     </div>
   )
 }
 
-export const columns: ColumnDef<App.Data.ApiTokenData>[] = [
+export const columns: ColumnDef<App.Data.AppData>[] = [
   {
     id: 'select',
     size: 20,
@@ -72,20 +56,9 @@ export const columns: ColumnDef<App.Data.ApiTokenData>[] = [
   },
   {
     accessorKey: 'name',
-    header: 'Name and abilities',
-    size: 300,
-    cell: ({ row }) => (
-      <div>
-        {row.original.name}
-        <div className="text-muted-foreground text-xs">{row.original.abilities.join(', ')}</div>
-      </div>
-    )
-  },
-  {
-    accessorKey: 'expires_at',
-    header: 'Expires at',
-    size: 80,
-    cell: ({ row }) => <span>{row.original.expires_at}</span>
+    header: 'Name',
+    size: 150,
+    cell: ({ row }) => <div>{row.original.name}</div>
   },
   {
     id: 'actions',

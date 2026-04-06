@@ -5,39 +5,37 @@ import { DataTable } from '@/components/data-table'
 import { Button } from '@/components/twc-ui/button'
 import { Toolbar } from '@/components/twc-ui/toolbar'
 import { appRoute } from '@/lib/utils'
-import type { SharedData } from '@/types'
 import { columns } from './index-columns'
 export default function ZoneIndex({
-  zones
+  applications
 }: {
-  zones: App.Data.Paginated.PaginationMeta<App.Data.ZoneData[]>
+  applications: App.Data.Paginated.PaginationMeta<App.Data.AppData[]>
 }) {
-  const appId = usePage<SharedData>().props.currentAppId
   return (
     <AppPage
-      title="Zones"
+      title="Applications"
       toolbar={
         <Toolbar>
           <Button
             variant="toolbar-default"
             icon={Add01Icon}
-            title="Create new zone"
-            onClick={() => router.visit(appRoute('app.zones.create'))}
+            title="Create new app"
+            onClick={() => router.visit(route('admin.apps.create'))}
           />
         </Toolbar>
       }
     >
       <DataTable
         columns={columns}
-        data={zones.data}
+        data={applications.data}
         pagination={{
-          current_page: zones.current_page,
-          last_page: zones.last_page,
-          per_page: zones.per_page,
-          total: zones.total
+          current_page: applications.current_page,
+          last_page: applications.last_page,
+          per_page: applications.per_page,
+          total: applications.total
         }}
-        onPageChange={page => router.get(appRoute('app.zones.index', { page }))}
-        itemName="Zones"
+        onPageChange={page => router.get(route('admin.apps.index', { page }))}
+        itemName="Applications"
       />
     </AppPage>
   )
@@ -46,8 +44,8 @@ export default function ZoneIndex({
 ZoneIndex.layout = {
   breadcrumbs: [
     {
-      title: 'Zones',
-      appRoute: 'app.zones.index'
+      title: 'Applications',
+      appRoute: 'admin.apps.index'
     }
   ]
 }

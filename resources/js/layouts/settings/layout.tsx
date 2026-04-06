@@ -22,28 +22,11 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     </Tabs>
   )
 
-  const toolbar = useMemo(
-    () => (
-      <Toolbar>
-        {url.startsWith(route('app.api-tokens.index', {}, false)) && (
-          <Button
-            variant="toolbar-default"
-            icon={Add01Icon}
-            title="Create new token"
-            onClick={() => router.visit(route('app.api-tokens.create'))}
-          />
-        )}
-      </Toolbar>
-    ),
-    [url]
-  )
-
   return (
     <AppPage
       title="Account settings"
       description="Manage your profile and account settings."
       tabs={tabs}
-      toolbar={toolbar}
     >
       {children}
     </AppPage>

@@ -15,6 +15,7 @@
     "laravel/tinker": "^3.0",
     "plank/laravel-mediable": "^6.0",
     "protonemedia/laravel-verify-new-email": "dev-l13-compatibility",
+    "red-explosion/laravel-sqids": "^2.1",
     "rinvex/countries": "^9.0",
     "spatie/enum": "^3.13",
     "spatie/laravel-data": "^4.15",

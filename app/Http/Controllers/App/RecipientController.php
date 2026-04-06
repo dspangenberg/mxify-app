@@ -3,25 +3,29 @@
 namespace App\Http\Controllers\App;
 
 use Alyakin\DnsChecker\Facades\DnsChecker;
+use App\Data\RecipientData;
 use App\Data\ZoneData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\App\ZoneRequest;
 use App\Models\App;
+use App\Models\Recipient;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class ZoneController extends Controller
+class RecipientController extends Controller
 {
     public function index(Request $request, App $app): Response
     {
-        $zones = $app->zones()->with('app')->orderBy('name')->paginate();
-        $zones->appends($_GET);
+        $zones = $app->zones()->pluck('id');
+        $recipients = Recipient::whereIn('zone_id', $zones)->with('zone')->orderBy('created_at', 'desc')->paginate();
 
-        return Inertia::render('app/zone/index', [
-            'zones' => ZoneData::collect($zones),
+        $recipients->appends($_GET);
+
+        return Inertia::render('app/recipient/index', [
+            'recipients' => RecipientData::collect($recipients),
         ]);
     }
 

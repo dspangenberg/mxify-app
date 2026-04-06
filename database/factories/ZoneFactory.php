@@ -14,7 +14,7 @@ class ZoneFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'description' => $this->faker->words(4),
+            'description' => $this->faker->sentence(),
             'webhook_url' => $this->faker->url(),
             'is_dns_created' => $this->faker->boolean(),
             'dns_checked_at' => Carbon::now(),

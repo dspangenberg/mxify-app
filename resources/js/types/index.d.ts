@@ -2,7 +2,7 @@ import type { IconSvgElement } from '@hugeicons/react'
 import type { Config } from 'ziggy-js'
 
 export interface Auth {
-  user: User
+  user: App.Data.UserData | null
 }
 
 export interface BreadcrumbItem {

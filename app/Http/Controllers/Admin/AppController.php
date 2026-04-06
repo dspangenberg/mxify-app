@@ -20,7 +20,7 @@ class AppController extends Controller
         $apps->appends($_GET);
 
         return Inertia::render('admin/app/index', [
-            'apps' => AppData::collect($apps),
+            'applications' => AppData::collect($apps),
         ]);
     }
 
@@ -29,23 +29,23 @@ class AppController extends Controller
         $app = new App;
 
         return Inertia::render('admin/app/edit', [
-            'app' => AppData::from($app),
+            'application' => AppData::from($app),
         ]);
     }
 
     public function edit(App $app): Response
     {
         return Inertia::render('admin/app/edit', [
-            'app' => AppData::from($app),
+            'application' => AppData::from($app),
         ]);
     }
 
-    public function update(ZoneRequest $request, Zone $zone): RedirectResponse
+    public function update(AppRequest $request, App $app): RedirectResponse
     {
-        $zone->update($request->validated());
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Zone updated successfully']);
+        $app->update($request->validated());
+        Inertia::flash('toast', ['type' => 'success', 'message' => 'App updated successfully']);
 
-        return redirect()->route('app.apps.index');
+        return redirect()->route('admin.apps.index');
     }
 
     public function store(AppRequest $request): RedirectResponse

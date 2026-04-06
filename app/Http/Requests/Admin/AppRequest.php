@@ -14,7 +14,8 @@ class AppRequest extends FormRequest
             'mx_name' => ['required', 'string'],
             'mx_ip4' => ['required', 'ipv4'],
             'mx_ip6' => ['nullable', 'ipv6'],
-            'description' => ['nullable', 'string'],
+            'address_prefix' => ['nullable', 'string'],
+            'webhook_route' => ['nullable', 'string'],
         ];
     }
 
