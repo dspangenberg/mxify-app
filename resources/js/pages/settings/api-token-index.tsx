@@ -3,6 +3,7 @@ import { router, usePage } from '@inertiajs/react'
 import { DataTable } from '@/components/data-table'
 import { Alert } from '@/components/twc-ui/alert'
 import { Button } from '@/components/twc-ui/button'
+import { appDashboardRoute, appRoute } from '@/lib/utils'
 import { columns } from './api-token-columns'
 export default function ApiTokenIndex({
   tokens
@@ -19,13 +20,12 @@ export default function ApiTokenIndex({
 
   return (
     <div className="mx-auto max-w-6xl">
-
       <DataTable
         columns={columns}
         data={tokens.data}
         filterBar={
-        <div className="px-1 pr-2.5">
-          {flash.api_token && (
+          <div className="px-1 pr-2.5">
+            {flash.api_token && (
               <Alert
                 className="mb-4"
                 title="Copy your personal access token; it will only be shown once."
@@ -41,13 +41,11 @@ export default function ApiTokenIndex({
                 }
               >
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm">
-                    {flash.api_token}
-                  </p>
+                  <p className="text-sm">{flash.api_token}</p>
                 </div>
               </Alert>
             )}
-        </div>
+          </div>
         }
         pagination={{
           current_page: tokens.current_page,
@@ -66,15 +64,15 @@ ApiTokenIndex.layout = {
   breadcrumbs: [
     {
       title: 'Dashboard',
-      href: route('app.dashboard')
+      href: appDashboardRoute()
     },
     {
       title: 'Account settings',
-      href: route('app.settings')
+      href: appRoute('app.settings')
     },
     {
       title: 'Personal access tokens',
-      href: route('app.api-tokens.index')
+      href: appRoute('app.api-tokens.index')
     }
   ]
 }

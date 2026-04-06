@@ -7,17 +7,20 @@
   "license": "MIT",
   "require": {
     "php": "^8.4",
+    "alyakin/dns-checker": "^2.1",
     "inertiajs/inertia-laravel": "^3.0",
     "laravel/framework": "^13.0",
+    "laravel/prompts": "^0.3.16",
     "laravel/sanctum": "^4.0",
     "laravel/tinker": "^3.0",
     "plank/laravel-mediable": "^6.0",
+    "protonemedia/laravel-verify-new-email": "dev-l13-compatibility",
     "rinvex/countries": "^9.0",
     "spatie/enum": "^3.13",
     "spatie/laravel-data": "^4.15",
     "spatie/laravel-typescript-transformer": "^2.5",
     "tightenco/ziggy": "^2.4",
-    "protonemedia/laravel-verify-new-email": "dev-l13-compatibility"
+    "veelasky/laravel-hashid": "^3.2"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",

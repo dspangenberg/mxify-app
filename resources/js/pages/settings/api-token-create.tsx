@@ -2,21 +2,18 @@ import { Transition } from '@headlessui/react'
 import { Button } from '@/components/twc-ui/button'
 import { Form, useForm } from '@/components/twc-ui/form'
 import { FormCard } from '@/components/twc-ui/form-card'
-import { FormGrid } from '@/components/twc-ui/form-grid'
-import { FormTextField } from '@/components/twc-ui/form-text-field'
 import { FormCheckboxGroup } from '@/components/twc-ui/form-checkbox-group'
 import { FormDatePicker } from '@/components/twc-ui/form-date-picker'
+import { FormGrid } from '@/components/twc-ui/form-grid'
+import { FormTextField } from '@/components/twc-ui/form-text-field'
+import { appDashboardRoute, appRoute } from '@/lib/utils'
 
 interface Ability {
   name: string
   description: string
 }
 
-export default function ApiTokenCreate ({
-  token
-}
-: { token: App.Data.ApiTokenData }) {
-
+export default function ApiTokenCreate({ token }: { token: App.Data.ApiTokenData }) {
   const form = useForm<App.Data.ApiTokenData>(
     'auth-login-form',
     'post',
@@ -30,6 +27,15 @@ export default function ApiTokenCreate ({
       name: 'route',
       description: 'can route mails'
     },
+    {
+      name: 'mail:get',
+      description: 'can show mail'
+    },
+    {
+      name: 'mail:delete',
+      description: 'can delete mail'
+    },
+
     {
       name: 'zone:create',
       description: 'can create zones'
@@ -95,7 +101,12 @@ export default function ApiTokenCreate ({
             />
           </div>
           <div className="col-span-5">
-            <FormDatePicker isRequired maxYears={50} label="Expires at" {...form.register('expires_at')} />
+            <FormDatePicker
+              isRequired
+              maxYears={50}
+              label="Expires at"
+              {...form.register('expires_at')}
+            />
           </div>
           <div className="col-span-24">
             <FormCheckboxGroup
@@ -106,7 +117,6 @@ export default function ApiTokenCreate ({
               itemValue="name"
               itemName="description"
             />
-
           </div>
         </FormGrid>
       </Form>
@@ -118,15 +128,15 @@ ApiTokenCreate.layout = {
   breadcrumbs: [
     {
       title: 'Dashboard',
-      href: route('app.dashboard')
+      href: appDashboardRoute()
     },
     {
       title: 'Account settings',
-      href: route('app.settings')
+      href: appRoute('app.settings')
     },
     {
       title: 'Personal access tokens',
-      href: route('app.api-tokens.index')
+      href: appRoute('app.api-tokens.index')
     }
   ]
 }

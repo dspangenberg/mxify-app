@@ -1,4 +1,3 @@
-import type { LucideIcon } from 'lucide-react'
 import type { IconSvgElement } from '@hugeicons/react'
 import type { Config } from 'ziggy-js'
 
@@ -28,6 +27,8 @@ export interface SharedData {
   quote: { message: string; author: string }
   auth: Auth
   ziggy: Config & { location: string }
+  apps: App.Data.AppData[]
+  currentAppId: number | null
   sidebarOpen: boolean
   canRegister: boolean
   [key: string]: unknown
@@ -44,4 +45,8 @@ export interface User {
   created_at: string
   updated_at: string
   [key: string]: unknown // This allows for additional properties...
+}
+
+export interface FlashDataType {
+  toast?: { type: 'success' | 'error'; message: string }
 }

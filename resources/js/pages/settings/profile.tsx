@@ -8,6 +8,7 @@ import { FormCard } from '@/components/twc-ui/form-card'
 import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormTextField } from '@/components/twc-ui/form-text-field'
 import { useInitials } from '@/hooks/use-initials'
+import { appDashboardRoute, appRoute } from '@/lib/utils'
 import type { SharedData } from '@/types'
 
 type ProfileForm = {
@@ -142,15 +143,15 @@ Profile.layout = {
   breadcrumbs: [
     {
       title: 'Dashboard',
-      href: route('app.dashboard')
+      href: appDashboardRoute()
     },
     {
       title: 'Account settings',
-      href: route('app.settings')
+      href: appRoute('app.settings')
     },
     {
       title: 'Profile',
-      href: route('app.profile.edit')
+      href: appRoute('app.profile.edit')
     }
   ]
 }

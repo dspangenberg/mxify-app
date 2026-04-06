@@ -1,10 +1,10 @@
+import { Add01Icon } from '@hugeicons/core-free-icons'
 import { router, usePage } from '@inertiajs/react'
-import { useMemo, type PropsWithChildren } from 'react'
+import { type PropsWithChildren, useMemo } from 'react'
 import { AppPage } from '@/components/app-page'
-import { Tab, TabList, Tabs } from '@/components/twc-ui/tabs'
-import { Add01Icon} from '@hugeicons/core-free-icons'
-import { Toolbar } from '@/components/twc-ui/toolbar'
 import { Button } from '@/components/twc-ui/button'
+import { Tab, TabList, Tabs } from '@/components/twc-ui/tabs'
+import { Toolbar } from '@/components/twc-ui/toolbar'
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
   const { url } = usePage()
@@ -18,9 +18,6 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
         <Tab id={route('app.password.edit', {}, false)} href={route('app.password.edit')}>
           Password
         </Tab>
-        <Tab id={route('app.api-tokens.index', {}, false)} href={route('app.api-tokens.index')}>
-          Personal access tokens
-        </Tab>
       </TabList>
     </Tabs>
   )
@@ -29,13 +26,11 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     () => (
       <Toolbar>
         {url.startsWith(route('app.api-tokens.index', {}, false)) && (
-        <Button
+          <Button
             variant="toolbar-default"
             icon={Add01Icon}
             title="Create new token"
-            onClick={() =>
-              router.visit(route('app.api-tokens.create'))
-            }
+            onClick={() => router.visit(route('app.api-tokens.create'))}
           />
         )}
       </Toolbar>

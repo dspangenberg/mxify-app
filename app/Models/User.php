@@ -5,18 +5,19 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Plank\Mediable\Exceptions\MediaUrlException;
-use Plank\Mediable\MediableInterface;
 use Plank\Mediable\Mediable;
+use Plank\Mediable\MediableInterface;
 use ProtoneMedia\LaravelVerifyNewEmail\MustVerifyNewEmail;
 
 class User extends Authenticatable implements MediableInterface, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable, Mediable, MustVerifyNewEmail;
+    use HasApiTokens, HasFactory, Mediable, MustVerifyNewEmail, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +28,10 @@ class User extends Authenticatable implements MediableInterface, MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_admin',
+        'is_locked',
+        'email_verified_at',
+        'last_login_at',
     ];
 
     /**
@@ -44,7 +49,7 @@ class User extends Authenticatable implements MediableInterface, MustVerifyEmail
         'pending_email',
     ];
 
-    public function getPendingEmailAttribute(): string | null
+    public function getPendingEmailAttribute(): ?string
     {
         return $this->getPendingEmail();
     }
@@ -58,7 +63,10 @@ class User extends Authenticatable implements MediableInterface, MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'last_login_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
+            'is_locked' => 'boolean',
         ];
     }
 
@@ -66,10 +74,15 @@ class User extends Authenticatable implements MediableInterface, MustVerifyEmail
     {
         try {
             $media = $this->firstMedia('avatar');
+
             return $media?->getUrl();
         } catch (MediaUrlException) {
             return null;
         }
     }
 
+    public function apps(): BelongsToMany
+    {
+        return $this->belongsToMany(App::class, 'user_apps');
+    }
 }

@@ -21,7 +21,11 @@ const hanleDelete = async (row: App.Data.ApiTokenData) => {
   if (promise) {
     const deleteUrl = route('app.api-tokens.delete', { token: row.id })
     if (deleteUrl) {
-      router.delete(deleteUrl)
+      router.delete(deleteUrl, {
+        onError: errors => {
+          console.error('Failed to delete token:', errors)
+        }
+      })
     }
   }
 }

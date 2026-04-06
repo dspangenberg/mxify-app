@@ -1,11 +1,13 @@
 import {
   DashboardSquare03Icon,
+  InboxIcon,
   MailAccount02Icon,
   ServerStack01Icon,
   Settings02Icon
 } from '@hugeicons/core-free-icons'
 import { Link, usePage } from '@inertiajs/react'
 import { Menu } from 'lucide-react'
+import { AppSelector } from '@/components/app-selector'
 import AppearanceToggleDropdown from '@/components/appearance-dropdown'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Icon } from '@/components/twc-ui/icon'
@@ -18,7 +20,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { cn } from '@/lib/utils'
+import { appDashboardRoute, appRoute, cn } from '@/lib/utils'
 import type { BreadcrumbItem, NavItem, SharedData } from '@/types'
 import AppLogo from './app-logo'
 import AppLogoIcon from './app-logo-icon'
@@ -32,29 +34,37 @@ interface AppHeaderProps {
   breadcrumbs?: BreadcrumbItem[]
 }
 
-export function AppHeader ({ breadcrumbs = [] }: AppHeaderProps) {
+export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   const page = usePage<SharedData>()
-  const user = page.props.auth.user
+  const user = usePage<SharedData>().props.auth.user
+  const appId = usePage<SharedData>().props.currentAppId
+
+  console.log(breadcrumbs.length)
 
   const mainNavItems: NavItem[] = [
     {
       title: 'Dashboard',
-      href: route('app.dashboard', {}, false),
+      href: route('app.dashboard', { app: appId }),
       icon: DashboardSquare03Icon
     },
     {
       title: 'Zones',
-      href: route('app.placeholder', {}, false),
+      href: route('app.zones.index', { app: appId }),
       icon: ServerStack01Icon
     },
     {
       title: 'Recipients',
-      href: route('app.placeholder', {}, false),
+      href: appRoute('app.placeholder'),
       icon: MailAccount02Icon
     },
     {
-      title: 'Setup',
-      href: route('app.placeholder', {}, false),
+      title: 'Mails',
+      href: appRoute('app.placeholder'),
+      icon: InboxIcon
+    },
+    {
+      title: 'Settings',
+      href: appRoute('app.placeholder'),
       icon: Settings02Icon
     }
   ]
@@ -122,9 +132,7 @@ export function AppHeader ({ breadcrumbs = [] }: AppHeaderProps) {
             </Sheet>
           </div>
 
-          <Link href={route('app.dashboard')} prefetch className="flex w-36 items-center">
-            <AppLogo />
-          </Link>
+          <AppSelector />
 
           {/* Desktop Navigation */}
           <div className="ml-6 hidden h-full w-full items-center space-x-6 lg:flex">
@@ -143,7 +151,7 @@ export function AppHeader ({ breadcrumbs = [] }: AppHeaderProps) {
                       {item.icon && <Icon icon={item.icon} className="mr-2 size-5" />}
                       {item.title}
                     </Link>
-                    {page.url === item.href && (
+                    {page.url.startsWith(item.href) && (
                       <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white" />
                     )}
                   </NavigationMenuItem>
@@ -188,14 +196,13 @@ export function AppHeader ({ breadcrumbs = [] }: AppHeaderProps) {
         </div>
       </div>
 
-      {breadcrumbs?.length > 1 && (
+      {breadcrumbs?.length > 0 && (
         <div className="flex w-full border-sidebar-border/80 border-b">
           <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-6xl">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
           </div>
         </div>
       )}
-
     </>
   )
 }
