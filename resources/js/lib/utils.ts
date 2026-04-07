@@ -15,3 +15,15 @@ export const focusRing = tv({
     }
   }
 })
+
+export function appRoute(name: string, params?: Record<string, unknown>) {
+  const match = window.location.pathname.match(/^\/app\/([^/]+)/)
+  const appId = match?.[1]
+
+  if (!appId) return '#'
+  return route(name, { app: appId, ...params })
+}
+
+export function appDashboardRoute() {
+  return appRoute('app.dashboard')
+}

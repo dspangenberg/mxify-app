@@ -4,15 +4,17 @@
  */
 
 import {
-  LockPasswordIcon,
+  DashboardCircleIcon,
   Logout02Icon,
-  AccountSetting01Icon
+  Setting07Icon,
+  UserGroupIcon,
+  UserSettings01Icon
 } from '@hugeicons/core-free-icons'
 import { router } from '@inertiajs/react'
 import { Pressable } from 'react-aria-components'
 import { Avatar } from '@/components/twc-ui/avatar'
 import { DropdownButton } from '@/components/twc-ui/dropdown-button'
-import { BaseMenuItem, MenuHeader, MenuItem, MenuSeparator } from '@/components/twc-ui/menu'
+import { Menu, MenuHeader, MenuItem, MenuPopover, MenuSubTrigger } from '@/components/twc-ui/menu'
 import { useInitials } from '@/hooks/use-initials'
 export function NavUser({ user }: { user: App.Data.UserData }) {
   const getInitials = useInitials()
@@ -46,13 +48,42 @@ export function NavUser({ user }: { user: App.Data.UserData }) {
             fullname={user.name}
           />
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-semibold">{user.name}</span>
-            <span className="truncate text-xs">{user.email}</span>
+            <span className="truncate font-bold">{user.name}</span>
+            <span className="truncate pt-0.5 font-normal text-xs">{user.email}</span>
           </div>
         </div>
       </MenuHeader>
 
-      <MenuItem icon={AccountSetting01Icon} title="Account settings" ellipsis separator href={route('app.settings')}/>
+      <MenuItem
+        icon={UserSettings01Icon}
+        title="Account settings"
+        ellipsis
+        separator
+        href={route('app.settings')}
+      />
+
+      {user.is_admin && (
+        <MenuSubTrigger>
+          <MenuItem icon={Setting07Icon} separator title="Administration" />
+          <MenuPopover>
+            <Menu>
+              <MenuItem
+                icon={UserGroupIcon}
+                ellipsis
+                href={route('admin.users.index')}
+                title="Users"
+              />
+              <MenuItem
+                icon={DashboardCircleIcon}
+                ellipsis
+                href={route('admin.apps.index')}
+                title="Applications"
+              />
+            </Menu>
+          </MenuPopover>
+        </MenuSubTrigger>
+      )}
+
       <MenuItem icon={Logout02Icon} title="Logout" onAction={() => handleLogout()} />
     </DropdownButton>
   )

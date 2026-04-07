@@ -5,6 +5,7 @@ import { Form, useForm } from '@/components/twc-ui/form'
 import { FormCard } from '@/components/twc-ui/form-card'
 import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormPasswordField } from '@/components/twc-ui/form-password-field'
+import { appDashboardRoute, appRoute } from '@/lib/utils'
 import type { SharedData } from '@/types'
 
 type PaswordForm = {
@@ -13,7 +14,7 @@ type PaswordForm = {
   password_confirmation: string
 }
 
-export default function Password () {
+export default function Password() {
   const form = useForm<PaswordForm>(
     'update-password-form',
     'put',
@@ -31,7 +32,6 @@ export default function Password () {
 
   const { auth } = usePage<SharedData>().props
   return (
-
     <FormCard
       className="mx-auto flex w-full max-w-4xl flex-1"
       footerClassName="flex justify-between gap-2"
@@ -107,15 +107,15 @@ Password.layout = {
   breadcrumbs: [
     {
       title: 'Dashboard',
-      href: route('app.dashboard')
+      href: appDashboardRoute()
     },
     {
       title: 'Account settings',
-      href: route('app.settings')
+      href: appRoute('app.settings')
     },
     {
       title: 'Password',
-      href: route('app.password.edit')
+      href: appRoute('app.password.edit')
     }
   ]
 }

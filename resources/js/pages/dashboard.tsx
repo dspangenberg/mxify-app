@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react'
 import { AppPage } from '@/components/app-page'
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
+import { appDashboardRoute } from '@/lib/utils'
 
 export default function Dashboard() {
   return (
@@ -24,13 +25,4 @@ export default function Dashboard() {
       </div>
     </AppPage>
   )
-}
-
-Dashboard.layout = {
-  breadcrumbs: [
-    {
-      title: 'Dashboard',
-      href: route('app.dashboard')
-    }
-  ]
 }

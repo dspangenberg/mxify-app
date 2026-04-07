@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react'
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern'
+import { appDashboardRoute } from '@/lib/utils'
 
 export default function Placeholder() {
   return (
@@ -18,7 +19,7 @@ Placeholder.layout = {
   breadcrumbs: [
     {
       title: 'Dashboard',
-      href: route('app.dashboard')
+      href: appDashboardRoute()
     },
     {
       title: 'Bald',
