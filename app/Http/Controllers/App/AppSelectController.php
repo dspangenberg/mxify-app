@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Data\AppData;
 use App\Http\Controllers\Controller;
 use App\Models\App;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -46,7 +47,7 @@ class AppSelectController extends Controller
         return redirect()->route('app.dashboard', ['app' => $app]);
     }
 
-    private function getAccessibleApps()
+    private function getAccessibleApps(): Collection
     {
         $user = request()->user();
 

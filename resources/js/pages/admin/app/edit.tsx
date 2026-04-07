@@ -1,22 +1,42 @@
 import { AppPage } from '@/components/app-page'
+import { AvatarUpload } from '@/components/twc-ui/avatar-upload'
 import { Button } from '@/components/twc-ui/button'
 import { Form, useForm } from '@/components/twc-ui/form'
 import { FormCard } from '@/components/twc-ui/form-card'
 import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormTextField } from '@/components/twc-ui/form-text-field'
-import { appDashboardRoute } from '@/lib/utils'
+import { useInitials } from '@/hooks/use-initials'
+
+type AppFormData = App.Data.AppData & {
+  avatar: File | null
+  remove_avatar: boolean
+}
 
 export default function AppEdit({ application }: { application: App.Data.AppData }) {
-  const form = useForm<App.Data.AppData>(
+  const form = useForm<AppFormData>(
     'app-edit-form',
     application.id ? 'put' : 'post',
     application.id
       ? route('admin.apps.update', { app: application.id })
       : route('admin.apps.store'),
-    application
+    {
+      ...application,
+      avatar: null,
+      remove_avatar: false
+    }
   )
 
-  const title = app.id ? 'Edit Application' : 'Create Application'
+  const getInitials = useInitials()
+
+  const handleAvatarChange = (avatar: File | undefined) => {
+    if (avatar) {
+      form.setData('avatar', avatar)
+    } else {
+      form.setData('remove_avatar', true)
+    }
+  }
+
+  const title = application.id ? 'Edit Application' : 'Create Application'
 
   return (
     <AppPage title={title}>
@@ -36,8 +56,19 @@ export default function AppEdit({ application }: { application: App.Data.AppData
         }
       >
         <Form form={form}>
-          <FormGrid className="w-full">
-            <div className="col-span-12">
+          <FormGrid>
+            <div className="col-span-2 inline-flex items-center justify-center">
+              <div>
+                <AvatarUpload
+                  src={application.avatar_url}
+                  fullname={application.name}
+                  initials={getInitials(application.name)}
+                  size="lg"
+                  onSelect={item => handleAvatarChange(item)}
+                />
+              </div>
+            </div>
+            <div className="col-span-10">
               <FormTextField
                 autoFocus
                 label="Name"
@@ -54,6 +85,8 @@ export default function AppEdit({ application }: { application: App.Data.AppData
                 {...form.register('website')}
               />
             </div>
+          </FormGrid>
+          <FormGrid border>
             <div className="col-span-12">
               <FormTextField
                 label="MX record name"
@@ -98,21 +131,4 @@ export default function AppEdit({ application }: { application: App.Data.AppData
       </FormCard>
     </AppPage>
   )
-}
-
-AppEdit.layout = page => {
-  // page.props enthält alle Props der Seite
-
-  return {
-    breadcrumbs: [
-      {
-        title: 'Applications',
-        href: route('admin.apps.index')
-      },
-      {
-        title: page.application.id ? 'Edit' : 'Create',
-        href: null
-      }
-    ]
-  }
 }

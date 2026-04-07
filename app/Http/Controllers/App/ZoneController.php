@@ -60,10 +60,13 @@ class ZoneController extends Controller
     {
         $records = DnsChecker::getRecords($zone->name, 'MX');
         $zone->dns_checked_at = now();
+
+
         if (count($records) > 0) {
             $zone->is_dns_created = true;
-            $zone->save();
         }
+
+        $zone->save();
 
         if ($zone->is_dns_created) {
             return Inertia::flash('toast', [
@@ -97,8 +100,9 @@ class ZoneController extends Controller
 
         if (count($records) > 0) {
             $zone->is_dns_created = true;
-            $zone->save();
         }
+
+        $zone->save();
 
         return redirect()->route('app.zones.index', ['app' => $app])->with('success', 'Zone created successfully');
     }

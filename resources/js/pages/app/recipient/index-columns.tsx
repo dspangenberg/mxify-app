@@ -87,7 +87,7 @@ export const columns: ColumnDef<App.Data.RecipientData>[] = [
     accessorKey: 'zone_id',
     header: 'Zone',
     size: 150,
-    cell: ({ row }) => <div className="truncate">{row.original.zone.name}</div>
+    cell: ({ row }) => <div className="truncate">{row.original.zone?.name}</div>
   },
   {
     id: 'actions',
