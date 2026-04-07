@@ -31,7 +31,7 @@ class CreateAdminCommand extends Command
 
         $email = text(
             label: 'What is your email?',
-            validate: ['name' => 'required|email|unique:users']
+            validate: ['email' => 'required|email|unique:users']
         );
 
         User::create([

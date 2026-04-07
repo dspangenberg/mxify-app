@@ -38,6 +38,11 @@ Route::middleware(['auth', 'verified', 'app.access'])->prefix('app/{app}')->grou
     Route::delete('api-tokens/{token}', [ApiTokenController::class, 'destroy'])->name('app.api-tokens.delete');
 
     Route::get('recipients', [RecipientController::class, 'index'])->name('app.recipients.index');
+    Route::get('recipients/create', [RecipientController::class, 'create'])->name('app.recipients.create');
+    Route::get('recipients/{recipient}/edit', [RecipientController::class, 'edit'])->name('app.recipients.edit');
+    Route::post('recipients', [RecipientController::class, 'store'])->name('app.recipients.store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put('recipients/{recipient}', [RecipientController::class, 'update'])->name('app.recipients.update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::delete('recipients/{recipient}', [RecipientController::class, 'destroy'])->name('app.recipients.delete');
 
 });
 

@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { appDashboardRoute, appRoute, cn } from '@/lib/utils'
+import { appRoute, cn } from '@/lib/utils'
 import type { BreadcrumbItem, NavItem, SharedData } from '@/types'
 import AppLogoIcon from './app-logo-icon'
 import { NavUser } from './nav-user'
@@ -36,17 +36,16 @@ interface AppHeaderProps {
 export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const user = usePage<SharedData>().props.auth.user
-  const appId = usePage<SharedData>().props.currentAppId
 
   const mainNavItems: NavItem[] = [
     {
       title: 'Dashboard',
-      href: route('app.dashboard', { app: appId }),
+      href: appRoute('app.dashboard'),
       icon: DashboardSquare03Icon
     },
     {
       title: 'Zones',
-      href: route('app.zones.index', { app: appId }),
+      href: appRoute('app.zones.index'),
       icon: ServerStack01Icon
     },
     {
@@ -65,6 +64,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
       icon: ShieldKeyIcon
     }
   ]
+
   return (
     <>
       <div className="border-sidebar-border/80 border-b bg-stone-100 dark:bg-neutral-800">
@@ -187,7 +187,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                 ))}
               </div>
               <AppearanceToggleDropdown />
-              <NavUser user={user} />
+              <NavUser user={user as App.Data.UserData} />
             </div>
           </div>
         </div>

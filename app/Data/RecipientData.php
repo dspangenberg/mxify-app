@@ -21,8 +21,9 @@ class RecipientData extends Data
 
         public readonly ?string $description,
         public readonly ?string $email_address,
+        public readonly string $token,
         public readonly ?int $zone_id,
-        public readonly ZoneData $zone,
+        public readonly ?ZoneData $zone,
 
         #[WithTransformer(DateTimeInterfaceTransformer::class, format: 'Y-m-d H:i:s')]
         public readonly ?DateTime $created_at = null,
