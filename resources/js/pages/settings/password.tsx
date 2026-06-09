@@ -64,7 +64,7 @@ export default function Password() {
             <input
               type="text"
               name="username"
-              value={auth.user.email}
+              value={auth.user?.email}
               readOnly
               tabIndex={-1}
               autoComplete="username"

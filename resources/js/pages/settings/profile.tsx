@@ -27,8 +27,8 @@ export default function Profile() {
     'patch',
     route('app.profile.update'),
     {
-      email: auth.user.email,
-      name: auth.user.name,
+      email: auth.user?.email as string,
+      name: auth.user?.name as string,
       avatar: null,
       remove_avatar: false
     },
@@ -78,7 +78,7 @@ export default function Profile() {
         </>
       }
     >
-      {auth.user.pending_email && (
+      {auth.user?.pending_email && (
         <Alert
           variant="warning"
           actions={
@@ -100,7 +100,7 @@ export default function Profile() {
             </div>
           }
         >
-          Your updated email address, {auth.user.pending_email} has not yet been confirmed.
+          Your updated email address, {auth.user?.pending_email} has not yet been confirmed.
         </Alert>
       )}
       <Form form={form}>
@@ -108,9 +108,9 @@ export default function Profile() {
           <div className="col-span-2 inline-flex items-center justify-center">
             <div>
               <AvatarUpload
-                src={auth.user.avatar_url}
-                fullname={auth.user.name}
-                initials={getInitials(auth.user.name)}
+                src={auth.user?.avatar_url as string}
+                fullname={auth.user?.name as string}
+                initials={getInitials(auth.user?.name as string)}
                 size="lg"
                 onSelect={item => handleAvatarChange(item)}
               />

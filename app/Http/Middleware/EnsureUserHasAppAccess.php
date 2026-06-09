@@ -11,18 +11,22 @@ class EnsureUserHasAppAccess
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $app = $request->route('app');
+        $user = $request->user();
 
-        if (! $app instanceof App) {
-            $app = App::where('id', $app)->first();
+        if (!$user) {
+            abort(403);
         }
 
-        $user = $request->user();
+        $app = $request->route('app');
+
+        if (!$app instanceof App) {
+            $app = App::where('id', $app)->first();
+        }
 
         $hasAccess = $app
             && ($user->is_admin || $user->apps()->where('apps.id', $app->id)->exists());
 
-        if (! $hasAccess) {
+        if (!$hasAccess) {
             abort(403);
         }
 

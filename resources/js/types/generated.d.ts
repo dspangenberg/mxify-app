@@ -28,8 +28,9 @@ export type RecipientData = {
 id: number | null;
 description: string | null;
 email_address: string | null;
+token: string;
 zone_id: number | null;
-zone: App.Data.ZoneData;
+zone: App.Data.ZoneData | null;
 created_at: string | null;
 };
 export type UserData = {

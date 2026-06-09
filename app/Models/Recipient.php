@@ -14,10 +14,9 @@ class Recipient extends Model
 
     protected $fillable = [
         'description',
-        'zone_id'
+        'zone_id',
+        'token',
     ];
-
-    protected string $sqidPrefix = '';
 
     public function zone(): BelongsTo
     {
@@ -30,8 +29,14 @@ class Recipient extends Model
 
     public function getEmailAddressAttribute(): ?string
     {
-        $app = $this->zone->app;
-        return $app->address_prefix . $this->sqid . '@' . $this->zone->name;
+        $zone = $this->zone;
+        $app = $zone?->app;
+
+        if (!$zone || !$app) {
+            return null;
+        }
+
+        return $app->address_prefix.$this->sqid.'@'.$zone->name;
     }
 
 }

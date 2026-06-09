@@ -3,24 +3,31 @@ import { AppPage } from '@/components/app-page'
 import { Button } from '@/components/twc-ui/button'
 import { Form, useForm } from '@/components/twc-ui/form'
 import { FormCard } from '@/components/twc-ui/form-card'
+import { FormComboBox } from '@/components/twc-ui/form-combo-box'
 import { FormGrid } from '@/components/twc-ui/form-grid'
 import { FormTextField } from '@/components/twc-ui/form-text-field'
 import { appRoute } from '@/lib/utils'
 import type { SharedData } from '@/types'
 
-export default function ZoneEdit({ zone }: { zone: App.Data.ZoneData }) {
+export default function RecipientEdit({
+  recipient,
+  zones
+}: {
+  recipient: App.Data.RecipientData
+  zones: App.Data.ZoneData[]
+}) {
   const appId = usePage<SharedData>().props.currentAppId
 
-  const form = useForm<App.Data.ZoneData>(
-    'zone-edit-form',
-    zone.id ? 'put' : 'post',
-    zone.id
-      ? route('app.zones.update', { app: appId, zone: zone.id })
-      : route('app.zones.store', { app: appId }),
-    zone
+  const form = useForm<App.Data.RecipientData>(
+    'recipient-edit-form',
+    recipient.id ? 'put' : 'post',
+    recipient.id
+      ? route('app.recipients.update', { app: appId, recipient: recipient.id })
+      : route('app.recipients.store', { app: appId }),
+    recipient
   )
   return (
-    <AppPage title="Create Zone" description="Create a new zone">
+    <AppPage title="Create recipient">
       <FormCard
         className="mx-auto flex w-full max-w-4xl flex-1"
         footer={
@@ -39,25 +46,9 @@ export default function ZoneEdit({ zone }: { zone: App.Data.ZoneData }) {
         <Form form={form}>
           <FormGrid className="w-full">
             <div className="col-span-12">
-              <FormTextField
-                autoFocus
-                label="Name"
-                isDisabled={!!zone.id}
-                isRequired
-                placeholder="example.example.com"
-                {...form.register('name')}
-              />
+              <FormComboBox autoFocus label="Zone" items={zones} {...form.register('zone_id')} />
             </div>
             <div className="col-span-12">
-              <FormTextField
-                autoFocus={!!zone.id}
-                label="Webhook URL"
-                isRequired
-                placeholder="https://example.com/webhook"
-                {...form.register('webhook_url')}
-              />
-            </div>
-            <div className="col-span-24">
               <FormTextField
                 label="Description"
                 placeholder="Description"
@@ -71,11 +62,11 @@ export default function ZoneEdit({ zone }: { zone: App.Data.ZoneData }) {
   )
 }
 
-ZoneEdit.layout = {
+RecipientEdit.layout = {
   breadcrumbs: [
     {
-      title: 'Zones',
-      href: appRoute('app.zones.index')
+      title: 'Recipients',
+      href: appRoute('app.recipients.index')
     },
     {
       title: 'Create',

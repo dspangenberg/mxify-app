@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RecipientRequest;
+use App\Http\Requests\App\RecipientRequest;
 use App\Http\Resources\RecipientResource;
 use App\Models\Recipient;
 

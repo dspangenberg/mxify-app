@@ -21,7 +21,7 @@ export function appRoute(name: string, params?: Record<string, unknown>) {
   const appId = match?.[1]
 
   if (!appId) return '#'
-  return route(name, { app: appId, ...params })
+  return route(name, { app: appId, ...params }, false)
 }
 
 export function appDashboardRoute() {

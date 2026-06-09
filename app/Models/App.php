@@ -22,7 +22,6 @@ class App extends Model implements MediableInterface
         'description' => '',
         'mx_name' => '',
         'mx_ip4' => '',
-        'mx_ip6' => '',
         'website' => '',
         'webhook_route' => '',
         'address_prefix' => '',

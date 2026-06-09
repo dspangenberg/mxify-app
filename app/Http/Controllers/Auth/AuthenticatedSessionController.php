@@ -37,12 +37,20 @@ class AuthenticatedSessionController extends Controller
         $user->save();
 
         $request->session()->regenerate();
+        $app = null;
 
         if ($user->current_app_id) {
-            return redirect()->intended(route('app.dashboard', ['app' => $user->current_app_id], absolute: false));
+            $app = $user->is_admin
+                ? App::query()->find($user->current_app_id)
+                : $user->apps()->where('apps.id', $user->current_app_id)->first();
         }
 
-        $app = $request->user()?->is_admin ? App::query()->orderBy('name')->first() : $request->user()?->apps()->orderBy('name')->first();
+        if (!$app) {
+            $app = $user->is_admin
+                ? App::query()->orderBy('name')->first()
+                : $user->apps()->orderBy('name')->first();
+        }
+
         if ($app) {
             return redirect()->intended(route('app.dashboard', ['app' => $app->id], absolute: false));
         }

@@ -34,7 +34,7 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'test') {
   })
 
   // Mock for IntersectionObserver (for tooltips)
-  global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  window.IntersectionObserver = vi.fn().mockImplementation(() => ({
     observe: vi.fn(),
     unobserve: vi.fn(),
     disconnect: vi.fn(),
@@ -44,11 +44,11 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'test') {
   }))
 
   // Mock for requestAnimationFrame
-  global.requestAnimationFrame = vi.fn().mockImplementation(cb => {
+  window.requestAnimationFrame = vi.fn().mockImplementation(cb => {
     return setTimeout(cb, 16)
   })
 
-  global.cancelAnimationFrame = vi.fn().mockImplementation(id => {
+  window.cancelAnimationFrame = vi.fn().mockImplementation(id => {
     clearTimeout(id)
   })
 }

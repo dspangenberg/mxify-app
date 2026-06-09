@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\App;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -10,7 +10,8 @@ class RecipientRequest extends FormRequest
     {
         return [
             'description' => ['required'],
-            'zone_id' => ['required', 'exists:zones'],
+            'zone_id' => ['required', 'exists:zones,id'],
+            'token' => ['required', 'string', 'max:32'],
         ];
     }
 
