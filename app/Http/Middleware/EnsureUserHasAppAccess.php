@@ -23,7 +23,6 @@ class EnsureUserHasAppAccess
             $app = App::where('id', $app)->first();
         }
 
-
         $hasAccess = $app
             && ($user->is_admin || $user->apps()->where('apps.id', $app->id)->exists());
 

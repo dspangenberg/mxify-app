@@ -16,7 +16,7 @@ class AppRequest extends FormRequest
             'mx_ip6' => ['nullable', 'ipv6'],
             'address_prefix' => ['nullable', 'string'],
             'webhook_route' => ['nullable', 'string'],
-            'avatar' => ['nullable', 'file', 'mimes:png,jpg,jpeg,webp', 'max:51200'],
+            'avatar' => ['nullable', 'file', 'mimes:png,jpg,jpeg,webp', 'max:10240'],
             'remove_avatar' => ['nullable', 'boolean'],
         ];
     }

@@ -39,10 +39,12 @@ class RecipientController extends Controller
         ]);
     }
 
-    public function edit(Recipient $recipient): Response
+    public function edit(App $app, Recipient $recipient): Response
     {
         $recipient->load('zone');
+        $zones = $app->zones()->with('app')->orderBy('name')->get();
         return Inertia::render('app/recipient/edit', [
+            'zones' => ZoneData::collect($zones),
             'recipient' => RecipientData::from($recipient),
         ]);
     }
@@ -68,7 +70,6 @@ class RecipientController extends Controller
 
     public function store(RecipientRequest $request, App $app): RedirectResponse
     {
-        ray($request->validated());
         Recipient::create($request->validated());
         Inertia::flash('toast', ['type' => 'success', 'message' => 'Recipient created successfully']);
         return redirect()->route('app.recipients.index', ['app' => $app]);

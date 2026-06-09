@@ -31,6 +31,7 @@ export default function AppEdit({ application }: { application: App.Data.AppData
   const handleAvatarChange = (avatar: File | undefined) => {
     if (avatar) {
       form.setData('avatar', avatar)
+      form.setData('remove_avatar', false)
     } else {
       form.setData('remove_avatar', true)
     }

@@ -61,11 +61,7 @@ class ZoneController extends Controller
         $records = DnsChecker::getRecords($zone->name, 'MX');
         $zone->dns_checked_at = now();
 
-
-        if (count($records) > 0) {
-            $zone->is_dns_created = true;
-        }
-
+        $zone->is_dns_created = count($records) > 0;
         $zone->save();
 
         if ($zone->is_dns_created) {
